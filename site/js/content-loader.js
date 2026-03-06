@@ -30,15 +30,16 @@ class ContentLoader {
     content.innerHTML = `
       <div class="welcome">
         <div class="welcome__label">// explore-claude-code</div>
-        <h1 class="welcome__title">Explore <em>Claude Code</em></h1>
+        <h1 class="welcome__title">Learn <em>Claude Code</em><br>by exploring it.</h1>
         <p class="welcome__subtitle">
-          This is a simulated project that teaches every Claude Code extension point.
-          The sidebar is a real file tree &mdash; <code>.claude/</code> holds skills,
-          agents, hooks, plugins, and config. Click any file to see what it does,
-          how to write one, and working examples you can copy.
+          This is a simulated Claude Code project. Every file and folder in the
+          sidebar is a real Claude Code concept &mdash; the same <code>.claude/</code>
+          directory, config files, and scaffolding you'd find in an actual repo.
+          Click any file to learn what it does, how to set it up, and see
+          annotated examples you can copy into your own projects.
         </p>
         <p class="welcome__subtitle welcome__subtitle--secondary">
-          Start with <code>CLAUDE.md</code> if you're new, or jump straight to a feature below.
+          Open a file. Read the source. Learn. Build.
         </p>
         <div class="feature-cards">${cardsHtml}</div>
       </div>`;
