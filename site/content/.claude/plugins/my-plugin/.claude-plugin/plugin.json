@@ -1,0 +1,66 @@
+{
+  // .claude-plugin/plugin.json — Plugin Manifest
+  //
+  // This file defines your plugin's identity. Claude Code uses it
+  // to display your plugin in the plugin manager, namespace your
+  // skills, and track versions for updates.
+  //
+  // This is the ONLY file that goes inside .claude-plugin/.
+  // All component directories (skills/, agents/, hooks/, etc.)
+  // live at the plugin root, NOT inside this directory.
+
+  // ── Required fields ────────────────────────────────────────────
+
+  // Unique identifier. Also becomes the skill namespace prefix.
+  // A skill called "review" in this plugin → /my-plugin:review
+  "name": "my-plugin",
+
+  // Shown in the plugin manager when browsing or installing.
+  "description": "A starter plugin showing the manifest format and available fields",
+
+  // Semantic versioning: major.minor.patch
+  // Bump major for breaking changes, minor for features, patch for fixes.
+  // Claude Code uses this to detect updates.
+  "version": "1.0.0",
+
+  // ── Optional metadata ──────────────────────────────────────────
+
+  // Attribution. Shown in plugin details.
+  "author": {
+    "name": "Your Name",
+    "email": "you@example.com"
+  },
+
+  // Documentation URL for your plugin
+  "homepage": "https://github.com/your-org/my-plugin#readme",
+
+  // Source code repository
+  "repository": "https://github.com/your-org/my-plugin",
+
+  // SPDX license identifier (MIT, Apache-2.0, etc.)
+  "license": "MIT",
+
+  // Tags for discovery and categorisation in marketplaces
+  "keywords": ["starter", "example", "scaffold"]
+
+  // ── Component overrides (advanced) ─────────────────────────────
+  //
+  // By default, Claude Code discovers components by scanning
+  // standard directories at the plugin root:
+  //   skills/    → Agent Skills
+  //   commands/  → Slash commands
+  //   agents/    → Custom agents
+  //   hooks/     → hooks.json event handlers
+  //   .mcp.json  → MCP server configs
+  //   .lsp.json  → LSP server configs
+  //
+  // You can override these with explicit paths:
+  //
+  //   "commands": ["./commands/core/", "./commands/extra/review.md"],
+  //   "agents": ["./agents/security-reviewer.md"],
+  //   "hooks": { "PostToolUse": [...] },
+  //   "mcpServers": { "my-db": { "command": "..." } },
+  //   "lspServers": { "go": { "command": "gopls" } }
+  //
+  // Most plugins don't need these — the defaults work.
+}

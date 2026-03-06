@@ -25,9 +25,13 @@
       "label": "agents",
       "color": "#b8965e"
     },
-    "rules": {
-      "label": "rules",
+    "plugins": {
+      "label": "plugins",
       "color": "#a89a48"
+    },
+    "marketplace": {
+      "label": "marketplace",
+      "color": "#7a8b5e"
     },
     "hooks": {
       "label": "hooks",
@@ -60,29 +64,29 @@
       "description": "Teach Claude specialised knowledge it loads autonomously when needed.",
       "order": 4
     },
-    "rules": {
-      "title": "Rules",
-      "description": "Path-specific instructions that activate based on which files Claude is working with.",
-      "order": 5
-    },
-    "memory": {
-      "title": "Auto Memory",
-      "description": "Persistent notes Claude maintains across conversations. Things it learns as it works.",
-      "order": 6
-    },
     "mcp": {
       "title": "MCP Servers",
       "description": "Connect Claude to external tools, APIs, and services via a standard protocol.",
-      "order": 7
+      "order": 5
     },
     "hooks": {
       "title": "Hooks",
       "description": "Run custom scripts automatically before or after Claude's tool calls.",
-      "order": 8
+      "order": 6
     },
     "agents": {
       "title": "Agents",
       "description": "Create specialised subagents and coordinate agent teams for parallel work.",
+      "order": 7
+    },
+    "plugins": {
+      "title": "Plugins",
+      "description": "Package skills, agents, hooks, and MCP servers into shareable extensions.",
+      "order": 8
+    },
+    "marketplaces": {
+      "title": "Marketplaces",
+      "description": "Distribute and discover plugins through curated catalogues.",
       "order": 9
     }
   },
@@ -304,42 +308,80 @@
           ]
         },
         {
-          "name": "rules",
-          "path": ".claude/rules",
+          "name": "plugins",
+          "path": ".claude/plugins",
           "type": "directory",
-          "badge": "rules",
+          "badge": "plugins",
           "children": [
             {
-              "name": "RULES.md",
-              "path": ".claude/rules/RULES.md",
+              "name": "PLUGINS.md",
+              "path": ".claude/plugins/PLUGINS.md",
               "type": "file",
-              "feature": "rules",
-              "badge": "rules",
-              "label": "What Are Rules?",
-              "description": "Path-specific instructions that activate when Claude works with matching files.",
-              "contentFile": ".claude/rules/RULES.md"
+              "feature": "plugins",
+              "badge": "plugins",
+              "label": "What Are Plugins?",
+              "description": "Learn how plugins package skills, agents, hooks, and MCP servers into shareable extensions.",
+              "contentFile": ".claude/plugins/PLUGINS.md"
             },
             {
-              "name": "typescript.md",
-              "path": ".claude/rules/typescript.md",
+              "name": "my-plugin",
+              "path": ".claude/plugins/my-plugin",
+              "type": "directory",
+              "children": [
+                {
+                  "name": ".claude-plugin",
+                  "path": ".claude/plugins/my-plugin/.claude-plugin",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "plugin.json",
+                      "path": ".claude/plugins/my-plugin/.claude-plugin/plugin.json",
+                      "type": "file",
+                      "feature": "plugins",
+                      "badge": "plugins",
+                      "label": "Plugin Manifest",
+                      "description": "The plugin.json manifest defines your plugin's identity, version, and metadata.",
+                      "contentFile": ".claude/plugins/my-plugin/.claude-plugin/plugin.json"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "MARKETPLACES.md",
+              "path": ".claude/plugins/MARKETPLACES.md",
               "type": "file",
-              "feature": "rules",
-              "badge": "rules",
-              "label": "TypeScript Rule",
-              "description": "A rule that applies extra TypeScript conventions when editing .ts files.",
-              "contentFile": ".claude/rules/typescript.md"
+              "feature": "marketplaces",
+              "badge": "marketplace",
+              "label": "Plugin Marketplaces",
+              "description": "Learn how to create, host, and distribute plugin catalogues for teams and communities.",
+              "contentFile": ".claude/plugins/MARKETPLACES.md"
+            },
+            {
+              "name": "my-marketplace",
+              "path": ".claude/plugins/my-marketplace",
+              "type": "directory",
+              "children": [
+                {
+                  "name": ".claude-plugin",
+                  "path": ".claude/plugins/my-marketplace/.claude-plugin",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "marketplace.json",
+                      "path": ".claude/plugins/my-marketplace/.claude-plugin/marketplace.json",
+                      "type": "file",
+                      "feature": "marketplaces",
+                      "badge": "marketplace",
+                      "label": "Marketplace Catalogue",
+                      "description": "The marketplace.json file lists plugins and where to fetch them from.",
+                      "contentFile": ".claude/plugins/my-marketplace/.claude-plugin/marketplace.json"
+                    }
+                  ]
+                }
+              ]
             }
           ]
-        },
-        {
-          "name": "MEMORY.md",
-          "path": ".claude/MEMORY.md",
-          "type": "file",
-          "feature": "memory",
-          "badge": "memory",
-          "label": "Auto Memory",
-          "description": "Persistent notes Claude maintains across conversations. Things it learns as it works.",
-          "contentFile": ".claude/MEMORY.md"
         }
       ]
     },

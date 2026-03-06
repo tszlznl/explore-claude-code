@@ -87,7 +87,8 @@
 .tree-badge--mcp { background: rgba(110, 148, 104, 0.12); color: var(--badge-mcp); }
 .tree-badge--skill { background: rgba(94, 145, 138, 0.12); color: var(--badge-skill); }
 .tree-badge--agents { background: rgba(184, 150, 94, 0.12); color: var(--badge-agents); }
-.tree-badge--rules { background: rgba(168, 154, 72, 0.12); color: var(--badge-rules); }
+.tree-badge--plugins { background: rgba(168, 154, 72, 0.12); color: var(--badge-plugins); }
+.tree-badge--marketplace { background: rgba(122, 139, 94, 0.12); color: var(--badge-marketplace); }
 .tree-badge--hooks { background: rgba(173, 110, 94, 0.12); color: var(--badge-hooks); }
 .tree-badge--code { background: rgba(94, 130, 160, 0.12); color: var(--badge-code); }
 
@@ -437,6 +438,25 @@
 
 .code-preview__body {
   overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-default) transparent;
+}
+
+.code-preview__body::-webkit-scrollbar {
+  height: 4px;
+}
+
+.code-preview__body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.code-preview__body::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 2px;
+}
+
+.code-preview__body::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
 }
 
 .code-preview__body pre {
@@ -569,7 +589,26 @@
   font-size: 12px;
   line-height: 1.6;
   overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-default) transparent;
   color: var(--text-secondary);
+}
+
+.code-preview__rendered .md-code-block::-webkit-scrollbar {
+  height: 4px;
+}
+
+.code-preview__rendered .md-code-block::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.code-preview__rendered .md-code-block::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 2px;
+}
+
+.code-preview__rendered .md-code-block::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
 }
 
 .code-preview__rendered .md-hr {

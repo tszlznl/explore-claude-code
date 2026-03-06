@@ -1,0 +1,92 @@
+{
+  // .claude-plugin/marketplace.json — Marketplace Catalogue
+  //
+  // This file defines a plugin marketplace: a catalogue that lists
+  // plugins and tells Claude Code where to fetch them. Host this
+  // in a git repo and share it with your team or community.
+  //
+  // Users add your marketplace:
+  //   /plugin marketplace add owner/repo
+  //
+  // Then install individual plugins:
+  //   /plugin install review-plugin@my-marketplace
+
+  // ── Marketplace identity ───────────────────────────────────────
+
+  // Public-facing name (kebab-case). Users see this when installing:
+  //   /plugin install <plugin>@my-marketplace
+  "name": "my-marketplace",
+
+  // Who maintains this marketplace
+  "owner": {
+    "name": "Your Team",
+    "email": "team@example.com"
+  },
+
+  // ── Optional metadata ──────────────────────────────────────────
+  "metadata": {
+    "description": "A starter marketplace showing the catalogue format",
+    "version": "1.0.0",
+
+    // Base directory for relative plugin sources.
+    // With this set, "source": "review-plugin" resolves to "./plugins/review-plugin"
+    "pluginRoot": "./plugins"
+  },
+
+  // ── Plugin catalogue ───────────────────────────────────────────
+  //
+  // Each entry needs at minimum a name and source.
+  // You can also include any field from the plugin.json schema.
+
+  "plugins": [
+
+    // ── Relative path source ─────────────────────────────────────
+    // Plugin lives in the same repo as the marketplace.
+    // The simplest option for self-contained marketplaces.
+    {
+      "name": "review-plugin",
+      "source": "./plugins/review-plugin",
+      "description": "Adds a /review skill for quick code reviews",
+      "version": "1.0.0"
+    },
+
+    // ── GitHub source ────────────────────────────────────────────
+    // Plugin lives in a separate GitHub repo.
+    // Supports ref (branch/tag) and sha (exact commit) pinning.
+    {
+      "name": "deploy-tools",
+      "source": {
+        "source": "github",
+        "repo": "your-org/deploy-plugin",
+        "ref": "v2.0.0"
+      },
+      "description": "Deployment automation and environment management",
+      "category": "devops",
+      "tags": ["deploy", "ci", "automation"]
+    },
+
+    // ── npm source ───────────────────────────────────────────────
+    // Plugin distributed as an npm package.
+    // Supports version ranges and custom registries.
+    {
+      "name": "lint-plugin",
+      "source": {
+        "source": "npm",
+        "package": "@your-org/claude-lint-plugin",
+        "version": "^1.0.0"
+      },
+      "description": "Auto-linting hooks for JavaScript and TypeScript"
+    }
+
+    // Other source types:
+    //
+    //   Git URL:
+    //   { "source": "url", "url": "https://gitlab.com/team/plugin.git" }
+    //
+    //   Git subdirectory (sparse clone for monorepos):
+    //   { "source": "git-subdir", "url": "https://...", "path": "tools/plugin" }
+    //
+    //   pip:
+    //   { "source": "pip", "package": "my-plugin" }
+  ]
+}
