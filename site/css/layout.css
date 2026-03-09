@@ -99,6 +99,7 @@ html, body {
   text-decoration: none;
   opacity: 0.8;
   transition: opacity 0.15s;
+  margin-left: var(--space-sm);
 }
 
 .title-bar__badge:hover {
