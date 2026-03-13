@@ -33,13 +33,22 @@ class FileExplorer {
   _renderNodes(nodes, depth) {
     const fragment = document.createDocumentFragment();
     for (const node of nodes) {
-      if (node.type === 'directory') {
+      if (node.type === 'separator') {
+        fragment.appendChild(this._renderSeparator());
+      } else if (node.type === 'directory') {
         fragment.appendChild(this._renderDirectory(node, depth));
       } else {
         fragment.appendChild(this._renderFile(node, depth));
       }
     }
     return fragment;
+  }
+
+  _renderSeparator() {
+    const sep = document.createElement('div');
+    sep.className = 'tree-separator';
+    sep.setAttribute('aria-hidden', 'true');
+    return sep;
   }
 
   _renderDirectory(node, depth) {

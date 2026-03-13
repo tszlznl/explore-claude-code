@@ -40,6 +40,10 @@
     "code": {
       "label": "code",
       "color": "#5e82a0"
+    },
+    "builtin": {
+      "label": "built-in",
+      "color": "#7d8a98"
     }
   },
   "features": {
@@ -88,6 +92,11 @@
       "title": "Marketplaces",
       "description": "Distribute and discover plugins through curated catalogues.",
       "order": 9
+    },
+    "bundled-skills": {
+      "title": "Bundled Skills",
+      "description": "Prompt-based workflows that ship with every Claude Code session.",
+      "order": 10
     }
   },
   "tree": [
@@ -412,6 +421,130 @@
       "label": "MCP Configuration",
       "description": "Connect Claude to external tools, APIs, and services via the Model Context Protocol.",
       "contentFile": ".mcp.json"
+    },
+    {
+      "type": "separator"
+    },
+    {
+      "name": "built-in",
+      "path": "built-in",
+      "type": "directory",
+      "badge": "builtin",
+      "children": [
+        {
+          "name": "BUILT-IN.md",
+          "path": "built-in/BUILT-IN.md",
+          "type": "file",
+          "feature": null,
+          "badge": "builtin",
+          "label": "What Are Built-ins?",
+          "description": "Features that ship with Claude Code and require no setup.",
+          "contentFile": "built-in/BUILT-IN.md"
+        },
+        {
+          "name": "bundled-skills",
+          "path": "built-in/bundled-skills",
+          "type": "directory",
+          "badge": "builtin",
+          "children": [
+            {
+              "name": "BUNDLED-SKILLS.md",
+              "path": "built-in/bundled-skills/BUNDLED-SKILLS.md",
+              "type": "file",
+              "feature": "bundled-skills",
+              "badge": "builtin",
+              "label": "Bundled Skills Overview",
+              "description": "Prompt-based workflows that ship with every session. How they work and how they differ from custom skills.",
+              "contentFile": "built-in/bundled-skills/BUNDLED-SKILLS.md"
+            },
+            {
+              "name": "simplify",
+              "path": "built-in/bundled-skills/simplify",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "simplify.md",
+                  "path": "built-in/bundled-skills/simplify/simplify.md",
+                  "type": "file",
+                  "feature": "bundled-skills",
+                  "badge": "builtin",
+                  "label": "/simplify",
+                  "description": "Spawns three parallel review agents to check code reuse, quality, and efficiency.",
+                  "contentFile": "built-in/bundled-skills/simplify/simplify.md"
+                }
+              ]
+            },
+            {
+              "name": "batch",
+              "path": "built-in/bundled-skills/batch",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "batch.md",
+                  "path": "built-in/bundled-skills/batch/batch.md",
+                  "type": "file",
+                  "feature": "bundled-skills",
+                  "badge": "builtin",
+                  "label": "/batch",
+                  "description": "Orchestrates large-scale parallel changes across a codebase using git worktrees.",
+                  "contentFile": "built-in/bundled-skills/batch/batch.md"
+                }
+              ]
+            },
+            {
+              "name": "debug",
+              "path": "built-in/bundled-skills/debug",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "debug.md",
+                  "path": "built-in/bundled-skills/debug/debug.md",
+                  "type": "file",
+                  "feature": "bundled-skills",
+                  "badge": "builtin",
+                  "label": "/debug",
+                  "description": "Reads the session debug log to troubleshoot tool failures and unexpected behaviour.",
+                  "contentFile": "built-in/bundled-skills/debug/debug.md"
+                }
+              ]
+            },
+            {
+              "name": "loop",
+              "path": "built-in/bundled-skills/loop",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "loop.md",
+                  "path": "built-in/bundled-skills/loop/loop.md",
+                  "type": "file",
+                  "feature": "bundled-skills",
+                  "badge": "builtin",
+                  "label": "/loop",
+                  "description": "Schedules recurring cron tasks to re-run prompts on an interval.",
+                  "contentFile": "built-in/bundled-skills/loop/loop.md"
+                }
+              ]
+            },
+            {
+              "name": "claude-api",
+              "path": "built-in/bundled-skills/claude-api",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "claude-api.md",
+                  "path": "built-in/bundled-skills/claude-api/claude-api.md",
+                  "type": "file",
+                  "feature": "bundled-skills",
+                  "badge": "builtin",
+                  "label": "/claude-api",
+                  "description": "Loads API and SDK reference material for your project's language. Auto-activates on imports.",
+                  "contentFile": "built-in/bundled-skills/claude-api/claude-api.md"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }

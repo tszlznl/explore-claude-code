@@ -108,7 +108,7 @@ class ContentLoader {
 
     // Title & description
     const feature = node.feature ? this.manifest.features[node.feature] : null;
-    html += `<h1 class="file-view__title">${feature ? feature.title : (node.label || node.name)}</h1>`;
+    html += `<h1 class="file-view__title">${node.label || (feature ? feature.title : node.name)}</h1>`;
     if (node.description) {
       html += `<p class="file-view__desc">${node.description}</p>`;
     }
@@ -136,7 +136,13 @@ class ContentLoader {
     // Related files
     if (feature) {
       const relatedNodes = this._findAllFilesForFeature(this.manifest.tree, node.feature);
-      const others = relatedNodes.filter(n => n.path !== node.path);
+      let others = relatedNodes.filter(n => n.path !== node.path);
+
+      // For built-in skill files, only link back to the overview — not every sibling skill
+      if (node.path.startsWith('built-in/') && others.length > 1) {
+        others = others.filter(n => n.path.endsWith('BUNDLED-SKILLS.md') || n.path.endsWith('BUILT-IN.md'));
+      }
+
       if (others.length > 0) {
         html += '<div class="file-view__related">';
         html += '<div class="file-view__related-title">Related files</div>';
@@ -485,7 +491,7 @@ class ContentLoader {
           codeBuffer = [];
           continue;
         } else {
-          const codeText = esc(codeBuffer.join('\n'));
+          const codeText = esc(codeBuffer.join('\n').trim());
           html += `<pre class="md-code-block"><code>${codeText}</code></pre>`;
           inCode = false;
           continue;

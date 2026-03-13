@@ -135,6 +135,15 @@ const Icons = {
     </svg>`;
   },
 
+  featureBundledSkills(size = 20) {
+    return `<svg width="${size}" height="${size}" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+      <rect x="3" y="3" width="14" height="14" rx="2" stroke-width="1.3"/>
+      <path d="M7 7h6M7 10h4M7 13h5" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="14" cy="14" r="3" fill="currentColor" stroke="none" opacity="0.3"/>
+      <path d="M13 14l1 1 2-2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
+  },
+
   // ── Utility ────────────────────────────────────────────────
 
   /** Get file icon based on extension */
@@ -157,6 +166,7 @@ const Icons = {
       'agents': this.featureAgents,
       'plugins': this.featurePlugins,
       'marketplaces': this.featureMarketplaces,
+      'bundled-skills': this.featureBundledSkills,
     };
     const fn = map[id];
     return fn ? fn.call(this, size) : this.fileGeneric(size);

@@ -38,10 +38,20 @@ All educational content is stored as JSON strings inside `site/data/manifest.jso
 
 **Frontmatter handling:** The markdown renderer detects `---` fenced blocks at the start of content and renders them as styled tables. Without this, `---` becomes `<hr>` and YAML `#` comments render as headings.
 
-**Manifest node schema:** Each tree node has `name`, `path`, `type` ("file"|"directory"). Files can have: `content` (markdown/code string), `feature` (groups related files), `badge`, `label`, `description`, `command`. Directories have `children` array.
+**Manifest node schema:** Each tree node has `name`, `path`, `type` ("file"|"directory"|"separator"). Files can have: `content` (markdown/code string), `feature` (groups related files), `badge`, `label`, `description`, `command`. Directories have `children` array. Separator nodes have only `type: "separator"` and render as a dashed divider line.
+
+**Content title priority:** The content loader displays `node.label` first, then falls back to the feature title, then the file name. This matters for the built-in section where multiple files share a feature but need distinct titles (e.g., each bundled skill shows its `/command` name, not "Bundled Skills").
+
+**Related files for built-in section:** Files under `built-in/` only link back to overview files (e.g., `BUNDLED-SKILLS.md`), not to every sibling sharing the same feature. This is filtered in `content-loader.js`.
+
+**Code block first-line indent bug:** The global `code` styles (padding, background, border) were inherited by `<code>` inside `.md-code-block`, causing a visible indent on the first line of rendered code blocks. Fixed by resetting `<code>` inside `.md-code-block` to `padding: 0; background: none; border: none`.
+
+**Content file line endings:** Always use Unix (LF) line endings for content files in `site/content/`. Windows CRLF can cause rendering issues in code blocks even though the markdown renderer normalises line endings.
 
 ## Content Design Principles
 
 - Content should feel like exploring a real repo — self-describing boilerplate that explains itself
 - Concise overview for scanning, with depth available for those who want it
 - Each `.claude/` subfolder has a grounding entry-point file (e.g., `SKILLS.md`) outside the scaffolding, then the scaffolding demonstrates the actual structure
+- The `built-in/` section covers features that ship with Claude Code and require no setup. A visual separator (dashed line) divides it from the `.claude/` project config above. Each built-in category gets an overview file and individual entries in subdirectories
+- Avoid em-dashes in content. Use commas, periods, or colons instead

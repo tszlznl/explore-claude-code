@@ -35,6 +35,7 @@
   --badge-marketplace: #7a8b5e;
   --badge-hooks: #ad6e5e;
   --badge-code: #5e82a0;
+  --badge-builtin: #7d8a98;
 
   /* Radius — sharp, not puffy */
   --radius-sm: 2px;
