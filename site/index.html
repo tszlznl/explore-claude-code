@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explore Claude Code</title>
+  <title>探索 Claude Code</title>
   <link rel="icon" type="image/png" href="favicon.png">
 
   <!-- SEO -->
-  <meta name="description" content="Learn Claude Code by exploring a simulated project. Click through real CLAUDE.md files, skills, plugins, hooks, agents, and MCP configs to understand how each feature works.">
-  <meta name="keywords" content="Claude Code, Claude, Anthropic, AI coding, agentic coding, CLAUDE.md, skills, plugins, MCP, hooks, agents">
+  <meta name="description" content="通过探索模拟项目学习 Claude Code。点击真实的 CLAUDE.md 文件、技能、插件、钩子、代理和 MCP 配置，了解每个功能的工作原理。">
+  <meta name="keywords" content="Claude Code, Claude, Anthropic, AI 编程，CLAUDE.md, 技能，插件，MCP, 钩子，代理">
   <meta name="author" content="Luke Renton">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Explore Claude Code">
-  <meta property="og:description" content="Learn Claude Code by exploring a simulated project. Every file and folder is a real Claude Code concept you can click through.">
+  <meta property="og:title" content="探索 Claude Code">
+  <meta property="og:description" content="通过探索模拟项目学习 Claude Code。每个文件和文件夹都是真实的 Claude Code 概念，可点击浏览。">
   <meta property="og:image" content="https://raw.githubusercontent.com/LukeRenton/explore-claude-code/main/logo.png">
   <meta property="og:url" content="https://github.com/LukeRenton/explore-claude-code">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Explore Claude Code">
-  <meta name="twitter:description" content="Learn Claude Code by exploring a simulated project. Every file and folder is a real Claude Code concept you can click through.">
+  <meta name="twitter:title" content="探索 Claude Code">
+  <meta name="twitter:description" content="通过探索模拟项目学习 Claude Code。每个文件和文件夹都是真实的 Claude Code 概念，可点击浏览。">
   <meta name="twitter:image" content="https://raw.githubusercontent.com/LukeRenton/explore-claude-code/main/logo.png">
 
   <!-- Fonts -->
@@ -50,18 +50,18 @@
         <div class="traffic-light traffic-light--minimize"></div>
         <div class="traffic-light traffic-light--maximize"></div>
       </div>
-      <button class="mobile-sidebar-toggle" id="mobile-sidebar-toggle" aria-label="Toggle sidebar">
+      <button class="mobile-sidebar-toggle" id="mobile-sidebar-toggle" aria-label="切换侧边栏">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </button>
       <span class="title-bar__text">claude-code-explorer : my-project</span>
-      <button class="mobile-terminal-toggle" id="mobile-terminal-toggle" aria-label="Toggle terminal">
+      <button class="mobile-terminal-toggle" id="mobile-terminal-toggle" aria-label="切换终端">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </button>
       <a class="title-bar__badge" href="https://github.com/LukeRenton/explore-claude-code" target="_blank" rel="noopener noreferrer">
         <img src="https://img.shields.io/github/stars/LukeRenton/explore-claude-code?style=flat&logo=github&label=GitHub&color=c47a50" alt="GitHub" height="18">
       </a>
       <a class="title-bar__badge" href="https://buymeacoffee.com/lukerent" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=flat&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee" height="18">
+        <img src="https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=flat&logo=buy-me-a-coffee&logoColor=black" alt="请我喝咖啡" height="18">
       </a>
     </div>
 
@@ -69,7 +69,7 @@
     <div class="main-layout">
       <!-- Sidebar -->
       <aside class="sidebar">
-        <div class="sidebar__header">My-Project</div>
+        <div class="sidebar__header">我的项目</div>
         <div class="sidebar__tree" id="file-tree"></div>
       </aside>
 
@@ -78,7 +78,7 @@
         <div class="tab-bar" id="tab-bar">
           <div class="tab active" data-tab="welcome">
             <span class="tab__dot"></span>
-            Welcome
+            欢迎
           </div>
         </div>
         <div class="content-scroll" id="content"></div>
@@ -90,14 +90,14 @@
         <div class="terminal-header">
           <span class="terminal-header__label">Claude Code</span>
           <div class="terminal-header__actions">
-            <button class="terminal-header__btn terminal-header__chevron" title="Toggle">&rsaquo;</button>
+            <button class="terminal-header__btn terminal-header__chevron" title="切换">&rsaquo;</button>
           </div>
         </div>
         <div class="terminal-body">
           <div class="terminal-output" id="terminal-output"></div>
           <div class="terminal-input-line">
             <span class="terminal-prompt">claude &gt;</span>
-            <input class="terminal-input" id="terminal-input" type="text" placeholder="Type /help for commands..." spellcheck="false" autocomplete="off">
+            <input class="terminal-input" id="terminal-input" type="text" placeholder="输入 /help 查看命令..." spellcheck="false" autocomplete="off">
           </div>
         </div>
       </div>
@@ -113,17 +113,17 @@
     <div class="void__glow"></div>
     <div class="void__content">
       <div class="void__text" id="void-text">
-        <p class="void__line void__line--dim">you tried to minimize me.</p>
-        <p class="void__line void__line--bold">bold move.</p>
-        <p class="void__line void__line--main">Claude Code doesn't shrink.<br>It expands into every corner of your codebase.</p>
-        <p class="void__line void__line--dim void__line--small">Agentic coding with no limits. Infinite context. Parallel tool use.<br>Your entire repository as working memory.</p>
+        <p class="void__line void__line--dim">你试图最小化我。</p>
+        <p class="void__line void__line--bold">大胆的举动。</p>
+        <p class="void__line void__line--main">Claude Code 不会缩小。<br>它会扩展到你的代码库的每个角落。</p>
+        <p class="void__line void__line--dim void__line--small">无限制的代理编程。无限上下文。并行工具使用。<br>整个代码库作为工作记忆。</p>
       </div>
-      <button class="void__escape" id="void-escape">// escape the void</button>
+      <button class="void__escape" id="void-escape">// 逃离虚空</button>
     </div>
   </div>
 
   <!-- Close wobble tooltip -->
-  <div class="close-tooltip" id="close-tooltip">nice try</div>
+  <div class="close-tooltip" id="close-tooltip">想得美</div>
 
   <!-- Prism.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>

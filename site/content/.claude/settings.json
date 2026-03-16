@@ -1,40 +1,40 @@
 {
-  // Permissions control which tools Claude can use without asking.
-  // Each entry is a glob pattern matched against the tool + arguments.
+  // 权限控制 Claude 无需询问即可使用的工具。
+  // 每个条目是一个 glob 模式，匹配工具 + 参数。
   "permissions": {
     "allow": [
-      // Let Claude read any file without prompting
+      // 允许 Claude 读取任何文件而无需提示
       "Read",
-      // Let Claude search files freely
+      // 允许 Claude 自由搜索文件
       "Glob",
       "Grep",
-      // Let Claude run your test suite
+      // 允许 Claude 运行测试套件
       "Bash(npm test)",
       "Bash(npm run lint)",
-      // Let Claude run dev server
+      // 允许 Claude 运行开发服务器
       "Bash(npm run dev)",
-      // Allow git status and diff (read-only git)
+      // 允许 git status 和 diff（只读 git）
       "Bash(git status)",
       "Bash(git diff*)",
       "Bash(git log*)"
     ],
     "deny": [
-      // Never let Claude push to remote
+      // 绝不允许 Claude 推送到远程
       "Bash(git push*)",
-      // Never let Claude install packages without asking
+      // 绝不允许 Claude 安装依赖包而无需询问
       "Bash(npm install*)",
-      // Block destructive git commands
+      // 阻止破坏性 git 命令
       "Bash(git reset --hard*)",
       "Bash(git clean*)"
     ]
   },
 
-  // API configuration
+  // API 配置
   "model": "claude-sonnet-4-6",
   "maxTokens": 16384,
 
-  // Hooks run custom scripts at specific points in Claude's workflow.
-  // See .claude/hooks/ for the full overview and example scripts.
+  // 钩子在 Claude 工作流的特定时间点运行自定义脚本。
+  // 查看 .claude/hooks/ 获取完整概览和示例脚本。
   "hooks": {
     "PreToolUse": [
       {

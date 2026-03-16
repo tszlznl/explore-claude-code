@@ -1,57 +1,57 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+本文件为 Claude Code (claude.ai/code) 在此代码仓库中工作时提供指导。
 
-## What This Is
+## 这是什么
 
-An interactive educational website that teaches Claude Code features by simulating a project you explore. Static HTML/CSS/JS — zero build steps, no framework, no bundler.
+一个交互式教育网站，通过模拟一个你探索的项目来教授 Claude Code 功能。静态 HTML/CSS/JS — 零构建步骤，无框架，无打包器。
 
-## Serving Locally
+## 本地服务
 
 ```bash
-# Any static server, pointed at the site/ directory
+# 任何静态服务器，指向 site/ 目录
 npx serve site
 python -m http.server -d site 8080
 ```
 
-Opening `site/index.html` directly also works (fetches manifest via relative path).
+直接打开 `site/index.html` 也可以（通过相对路径获取 manifest）。
 
-## Architecture
+## 架构
 
-All educational content is stored as JSON strings inside `site/data/manifest.json`. This single file drives the entire UI — tree structure, file content, labels, badges, and feature groupings. To add or change content, edit the manifest.
+所有教育内容都存储为 `site/data/manifest.json` 内的 JSON 字符串。这单个文件驱动整个 UI — 树结构、文件内容、标签、徽章和功能分组。要添加或更改内容，请编辑 manifest。
 
-**Component classes (all vanilla JS, no modules, loaded via `<script>` tags):**
+**组件类（都是 vanilla JS，无模块，通过 `<script>` 标签加载）：**
 
-- `App` (app.js) — Controller. Loads manifest, wires components, handles keyboard nav (arrow keys), hash routing, traffic light buttons, and the void easter egg (minimize button → canvas particle animation).
-- `FileExplorer` (file-explorer.js) — Sidebar tree. Draws connector lines (├── └──) on `<canvas>` elements inside `.tree-children-guided` containers. `.claude` is auto-expanded on load.
-- `ContentLoader` (content-loader.js) — Renders file content. Has a hand-rolled markdown parser supporting: YAML frontmatter (rendered as tables), fenced code blocks, tables, lists, inline formatting, and links. Markdown files get a Rendered/Raw toggle. Syntax highlighting via Prism.js.
-- `Terminal` (terminal.js) — Right-side panel. Interactive slash command emulator (`/help`, `/init`, `/doctor`, `/diff`, `/compact`, `/model`, `/cost`, `/status`, `/config`, `/memory`). Animated output sequences.
-- `ProgressTracker` (progress.js) — Tracks visited features in localStorage under key `tcc-progress`.
+- `App` (app.js) — 控制器。加载 manifest，连接组件，处理键盘导航（方向键），hash 路由，交通灯按钮，以及虚空彩蛋（最小化按钮 → 画布粒子动画）。
+- `FileExplorer` (file-explorer.js) — 侧边栏树。在 `.tree-children-guided` 容器内的 `<canvas>` 元素上绘制连接线（├── └──）。`.claude` 在加载时自动展开。
+- `ContentLoader` (content-loader.js) — 渲染文件内容。有一个手写的 markdown 解析器，支持：YAML frontmatter（渲染为表格）、围栏代码块、表格、列表、内联格式化和链接。Markdown 文件获得 渲染/原始 切换。语法高亮通过 Prism.js。
+- `Terminal` (terminal.js) — 右侧面板。交互式斜杠命令模拟器（`/help`、`/init`、`/doctor`、`/diff`、`/compact`、`/model`、`/cost`、`/status`、`/config`、`/memory`）。动画输出序列。
+- `ProgressTracker` (progress.js) — 在 localStorage 中跟踪访问的功能，键为 `tcc-progress`。
 
-**CSS is split by concern:** `variables.css` (design tokens), `layout.css` (shell/sidebar/content grid), `components.css` (tree items, badges, content panels, frontmatter), `syntax.css` (Prism overrides), `terminal.css`, `void.css` (easter egg).
+**CSS 按关注点拆分：** `variables.css`（设计令牌）、`layout.css`（外壳 - 侧边栏 - 内容网格）、`components.css`（树项、徽章、内容面板、frontmatter）、`syntax.css`（Prism 覆盖）、`terminal.css`、`void.css`（彩蛋）。
 
-## Critical Invariants
+## 关键不变量
 
-**Canvas DPI scaling:** `_createCanvas()` in file-explorer.js already calls `ctx.scale(dpr, dpr)`. Callers must never scale the context again or tree connector lines will misalign on high-DPI displays (coordinates get multiplied by dpr²).
+**Canvas DPI 缩放：** file-explorer.js 中的 `_createCanvas()` 已经调用 `ctx.scale(dpr, dpr)`. 调用者切勿再次缩放上下文，否则树连接线会在高 DPI 显示器上错位（坐标会被乘以 dpr²）。
 
-**Static tree line timing:** The `.claude` directory is auto-expanded on load. `_drawStaticLines` uses double `requestAnimationFrame` to ensure the browser has completed layout before measuring `offsetTop`/`getBoundingClientRect`. If the zero-dimension guard triggers, it retries on the next frame.
+**静态树线计时：** `.claude` 目录在加载时自动展开。`_drawStaticLines` 使用双重 `requestAnimationFrame` 确保浏览器在完成布局后再测量 `offsetTop`/`getBoundingClientRect`。如果零尺寸保护触发，它会在下一帧重试。
 
-**Frontmatter handling:** The markdown renderer detects `---` fenced blocks at the start of content and renders them as styled tables. Without this, `---` becomes `<hr>` and YAML `#` comments render as headings.
+**Frontmatter 处理：** markdown 渲染器检测内容开头的 `---` 围栏块并将其渲染为样式表格。否则，`---` 会变成 `<hr>`，YAML `#` 注释会渲染为标题。
 
-**Manifest node schema:** Each tree node has `name`, `path`, `type` ("file"|"directory"|"separator"). Files can have: `content` (markdown/code string), `feature` (groups related files), `badge`, `label`, `description`, `command`. Directories have `children` array. Separator nodes have only `type: "separator"` and render as a dashed divider line.
+**Manifest 节点模式：** 每个树节点有 `name`、`path`、`type`（"file"|"directory"|"separator"）。文件可以有：`content`（markdown/代码字符串）、`feature`（分组相关文件）、`badge`、`label`、`description`、`command`。目录有 `children` 数组。分隔符节点只有 `type: "separator"` 并渲染为虚线分隔线。
 
-**Content title priority:** The content loader displays `node.label` first, then falls back to the feature title, then the file name. This matters for the built-in section where multiple files share a feature but need distinct titles (e.g., each bundled skill shows its `/command` name, not "Bundled Skills").
+**内容标题优先级：** 内容加载器首先显示 `node.label`，然后回退到功能标题，然后是文件名。这在 built-in 部分很重要，因为多个文件共享一个功能但需要不同的标题（例如，每个内置技能显示其 `/command` 名称，而不是 "Bundled Skills"）。
 
-**Related files for built-in section:** Files under `built-in/` only link back to overview files (e.g., `BUNDLED-SKILLS.md`), not to every sibling sharing the same feature. This is filtered in `content-loader.js`.
+**built-in 部分的相关文件：** built-in/下的文件只链接回概览文件（例如 `BUNDLED-SKILLS.md`），而不是每个共享相同功能的兄弟文件。这在 content-loader.js 中过滤。
 
-**Code block first-line indent bug:** The global `code` styles (padding, background, border) were inherited by `<code>` inside `.md-code-block`, causing a visible indent on the first line of rendered code blocks. Fixed by resetting `<code>` inside `.md-code-block` to `padding: 0; background: none; border: none`.
+**代码块第一行缩进 bug：** 全局 `code` 样式（padding、background、border）被 `.md-code-block` 内的 `<code>` 继承，导致渲染代码块的第一行有明显的缩进。修复方法是将 `.md-code-block` 内的 `<code>` 重置为 `padding: 0; background: none; border: none`。
 
-**Content file line endings:** Always use Unix (LF) line endings for content files in `site/content/`. Windows CRLF can cause rendering issues in code blocks even though the markdown renderer normalises line endings.
+**内容文件行尾：** `site/content/` 中的内容文件始终使用 Unix (LF) 行尾。Windows CRLF 会导致代码块中的渲染问题，即使 markdown 渲染器会规范化行尾。
 
-## Content Design Principles
+## 内容设计原则
 
-- Content should feel like exploring a real repo — self-describing boilerplate that explains itself
-- Concise overview for scanning, with depth available for those who want it
-- Each `.claude/` subfolder has a grounding entry-point file (e.g., `SKILLS.md`) outside the scaffolding, then the scaffolding demonstrates the actual structure
-- The `built-in/` section covers features that ship with Claude Code and require no setup. A visual separator (dashed line) divides it from the `.claude/` project config above. Each built-in category gets an overview file and individual entries in subdirectories
-- Avoid em-dashes in content. Use commas, periods, or colons instead
+- 内容应该像探索真正的仓库一样 — 自我描述的样板代码，自己解释自己
+- 简洁概览便于扫描，为想要深度的人提供深度
+- 每个 `.claude/` 子文件夹在样板外有一个接地入口文件（例如 `SKILLS.md`），然后样板演示实际结构
+- `built-in/` 部分涵盖随 Claude Code 附带且无需设置的功能。视觉分隔符（虚线）将其与上方的 `.claude/` 项目配置分开。每个内置类别都有一个概览文件和子目录中的单独条目
+- 避免在内容中使用破折号。改用逗号、句号或冒号

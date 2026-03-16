@@ -1,41 +1,41 @@
-Review the changes in this PR. Focus on:
+审查此 PR 中的更改。重点关注：
 
-1. **Correctness**: Does the logic do what it claims?
-2. **Security**: Any injection risks, leaked secrets, or auth bypasses?
-3. **Tests**: Are edge cases covered?
-4. **Style**: Does it follow our conventions in CLAUDE.md?
+1. **正确性**：逻辑是否做了它声称的事情？
+2. **安全性**：任何注入风险、泄露的密钥或身份验证绕过？
+3. **测试**：边缘情况是否被覆盖？
+4. **风格**：是否遵循 CLAUDE.md 中的约定？
 
-For each issue found, classify as:
-- **Must fix**: Bugs, security issues
-- **Should fix**: Missing tests, unclear naming
-- **Nit**: Style preferences, optional improvements
+对于发现的每个问题，分类为：
+- **必须修复**：bug、安全问题
+- **应该修复**：缺少测试、不清晰的命名
+- **建议**：风格偏好、可选的改进
 
-Start by running `git diff main...HEAD` to see all changes.
+首先运行 `git diff main...HEAD` 查看所有更改。
 
 $ARGUMENTS
 
 ---
 
-This is a starter command file. The filename `my-command.md` becomes the slash command `/my-command`.
+这是一个入门命令文件。文件名 `my-command.md` 成为斜杠命令 `/my-command`。
 
-Everything above the `---` is the prompt that Claude receives when you invoke the command. `$ARGUMENTS` is replaced with whatever you type after the command name.
+`---` 上面的所有内容都是 Claude 在调用命令时收到的提示。`$ARGUMENTS` 被替换为你在命令名称后输入的任何内容。
 
-For example, `/my-command focus on auth` would replace `$ARGUMENTS` with "focus on auth".
+例如，`/my-command 关注 auth` 会将 `$ARGUMENTS` 替换为"关注 auth"。
 
-## What Makes a Good Command
+## 什么是好的命令
 
-- A clear, specific task (not open-ended)
-- Context about your project's standards or conventions
-- Structured output format so results are consistent
-- `$ARGUMENTS` to allow per-invocation customisation
+- 清晰、具体的任务（不是开放的）
+- 关于你项目标准或约定的上下文
+- 结构化的输出格式，以便结果一致
+- `$ARGUMENTS` 允许每次调用的自定义
 
-## Limitations
+## 限制
 
-Commands are simple prompt templates. They do not support:
+命令是简单的提示模板。它们不支持：
 
-- Frontmatter (model overrides, invocation control, tool restrictions)
-- Supporting files (scripts, references, assets)
-- Dynamic context injection (`!` backtick syntax)
-- Auto-loading based on task relevance
+- Frontmatter（模型覆盖、调用控制、工具限制）
+- 支持文件（脚本、参考、资源）
+- 动态上下文注入（`!` 反引号语法）
+- 基于任务相关性的自动加载
 
-For any of those features, use a [skill](^Skills are the newer, more powerful replacement for commands. See the skills/ directory for the full structure) instead. Commands and skills create the same `/slash-command` interface.
+对于任何这些功能，使用 [技能](^技能是更新的、更强大的命令替代品。参见 skills/ 目录以获取完整结构) 代替。命令和技能创建相同的 `/slash-command` 接口。

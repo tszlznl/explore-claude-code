@@ -1,44 +1,44 @@
 # /btw
 
-Ask a quick side question about your current work without adding to the conversation history. The question and answer appear in a dismissible overlay and never enter the main context.
+询问关于当前工作的快速侧边问题，而不添加到对话历史中。问题和答案出现在可关闭的覆盖层中，从不进入主上下文。
 
-## Usage
+## 用法
 
 ```
-/btw what was the name of that config file again?
-/btw what does the second argument to this function do?
-/btw why did you choose that approach?
+/btw 那个配置文件的名称是什么来着？
+/btw 这个函数的第二个参数做什么？
+/btw 你为什么选择这种方法？
 ```
 
-## How It Works
+## 工作原理
 
-1. You type `/btw` followed by your question
-2. Claude answers using everything already in the current conversation context
-3. The answer appears in an overlay. Press Space, Enter, or Escape to dismiss
-4. Neither the question nor the answer is added to conversation history
+1. 你输入 `/btw` 后跟你的问题
+2. Claude 使用当前对话上下文中已经看到的内容回答
+3. 答案出现在覆盖层中。按空格、回车或 Escape 关闭
+4. 问题和答案都不会添加到对话历史中
 
-## Key Properties
+## 关键属性
 
-| Property | Detail |
+| 属性 | 详情 |
 |---|---|
-| Conversation visibility | Full. Can reference anything Claude has already seen this session |
-| Tool access | None. Cannot read files, run commands, or search |
-| Follow-up turns | None. Single question, single answer |
-| Cost | Minimal. Reuses the parent conversation's [prompt cache](^A cache that stores the conversation prefix so repeated requests avoid re-processing the same tokens) |
-| Works mid-response | Yes. Runs independently without interrupting Claude's current turn |
+| 对话可见性 | 完整。可以引用 Claude 在此会话中已经看到的内容 |
+| 工具访问 | 无。无法读取文件、运行命令或搜索 |
+| 后续回合 | 无。单个问题，单个答案 |
+| 成本 | 最小。重用父对话的 [提示缓存](^存储对话前缀的缓存，因此重复请求避免重新处理相同的 token) |
+| 响应中工作 | 是。独立运行，不中断 Claude 的当前回合 |
 
-## /btw vs Subagents
+## /btw 与子代理
 
-`/btw` is the inverse of a [subagent](^An isolated Claude instance with its own context and tools. See the agents section for details):
+`/btw` 是 [子代理](^一个隔离的 Claude 实例，有自己的上下文和工具。参见代理部分了解详情) 的反面：
 
-| | /btw | Subagent |
+| | /btw | 子代理 |
 |---|---|---|
-| Context | Full conversation | Starts empty |
-| Tools | None | Full tool access |
-| Best for | Asking about what Claude already knows | Going out to find something new |
+| 上下文 | 完整对话 | 从头开始为空 |
+| 工具 | 无 | 完整工具访问 |
+| 最适合 | 询问 Claude 已经知道的内容 | 出去找新东西 |
 
-## When to Use It
+## 何时使用它
 
-- You need a quick answer but do not want to derail a long-running task
-- You want to reference something Claude said earlier without cluttering context
-- You are mid-conversation and want to check a detail without breaking flow
+- 你需要快速答案但不想让长时间运行的任务偏离轨道
+- 你想引用 Claude 之前说过的内容，而不弄乱上下文
+- 你在对话中途，想检查细节而不打断流程

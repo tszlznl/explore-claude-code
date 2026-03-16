@@ -1,25 +1,25 @@
-# assets/ - Static Resources
+# assets/ - 静态资源
 
-This directory holds static resources that the skill can reference. Things Claude reads or fills in but does not execute.
+此目录包含技能可以引用的静态资源。Claude 阅读或填写但不执行的内容。
 
-## What Goes Here
+## 放什么内容
 
-- **Templates**: Document templates, config file templates, boilerplate structures Claude fills in for each use
-- **Schemas**: JSON schemas, database schemas, API response shapes
-- **Data files**: Lookup tables, mapping files, reference data
-- **Images**: Diagrams, example screenshots (Claude can view images)
-- **Example outputs**: Sample files showing the expected format
+- **模板**：文档模板、配置文件模板、Claude 每次使用填充的样板结构
+- **模式**：JSON 模式、数据库模式、API 响应形状
+- **数据文件**：查找表、映射文件、参考数据
+- **图像**：图表、示例截图（Claude 可以查看图像）
+- **示例输出**：显示预期格式的示例文件
 
-## How It Works
+## 工作原理
 
-SKILL.md references assets when needed:
+SKILL.md 在需要时引用资源：
 
-"Use the template at [assets/template.md](assets/template.md) as the starting point."
+"使用 [assets/template.md](assets/template.md) 处的模板作为起点。"
 
-Claude reads the asset, fills in the dynamic parts, and produces the output. Assets are static. They do not change between invocations.
+Claude 阅读资源，填充动态部分，并生成输出。资源是静态的。它们不会在调用之间更改。
 
-## Example Use Cases
+## 示例用例
 
-- A PR template that Claude fills in with the actual changes
-- A config schema that Claude validates against
-- A component boilerplate that Claude customises per request
+- PR 模板，Claude 用实际更改填充
+- Claude 验证的配置模式
+- Claude 按请求自定义的组件样板

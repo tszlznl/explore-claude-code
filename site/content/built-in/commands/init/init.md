@@ -1,52 +1,52 @@
 # /init
 
-Analyses your codebase and generates a starter `CLAUDE.md` file. This is the fastest way to give Claude persistent context about your project.
+分析你的代码库并生成初始 `CLAUDE.md` 文件。这是让 Claude 获得关于项目持久化上下文的最快方式。
 
-## Usage
+## 用法
 
 ```
 /init
 ```
 
-No arguments. Claude examines your project and drafts the file.
+无参数。Claude 检查你的项目并起草文件。
 
-## How It Works
+## 工作原理
 
-1. Claude scans your project structure, config files, READMEs, and build scripts
-2. It drafts a `CLAUDE.md` covering: project overview, tech stack, build and test commands, code conventions, and common workflows
-3. The draft opens for your review
-4. You edit, approve, and commit it to version control
+1. Claude 扫描你的项目结构、配置文件、README 和构建脚本
+2. 起草 `CLAUDE.md`，涵盖：项目概览、技术栈、构建和测试命令、代码约定和常见工作流
+3. 草稿打开供你审查
+4. 你编辑、批准并提交到版本控制
 
-## What It Generates
+## 生成内容
 
-A typical `/init` output includes:
+典型的 `/init` 输出包括：
 
-- **Project overview**: what the project is, its tech stack, key directories
-- **Build and test commands**: how to build, test, lint, and deploy
-- **Code conventions**: naming, imports, error handling patterns it detected
-- **Common workflows**: branch naming, PR process, deploy steps
-- **Gotchas**: quirks or requirements it noticed
+- **项目概览**：项目是什么、技术栈、关键目录
+- **构建和测试命令**：如何构建、测试、lint 和部署
+- **代码约定**：检测到的命名、导入、错误处理模式
+- **常见工作流**：分支命名、PR 流程、部署步骤
+- **注意事项**：注意到的怪癖或要求
 
-## On Existing Projects
+## 在现有项目上
 
-`/init` works on projects that already have a `CLAUDE.md`. Instead of overwriting, it:
+`/init` 适用于已经有 `CLAUDE.md` 的项目。它不会覆盖，而是：
 
-- Analyses what is already there
-- Suggests additions and improvements
-- Preserves your existing instructions
+- 分析已有内容
+- 建议添加和改进
+- 保留现有指令
 
-This makes it useful for periodic maintenance: run `/init` after major changes to see if Claude spots new conventions or workflows worth documenting.
+这使得它可用于定期维护：在重大更改后运行 `/init`，看看 Claude 是否发现值得记录的新约定或工作流。
 
-## When to Use It
+## 何时使用它
 
-- Setting up Claude Code on a new project for the first time
-- Onboarding a team member who wants a quick `CLAUDE.md` starting point
-- After a major refactor or tech stack change, to refresh project context
-- When Claude keeps making the same mistake and you want to add a rule
+- 首次在新项目上设置 Claude Code
+- 为想要快速 `CLAUDE.md` 起点的团队成员入职
+- 重大重构或技术栈更改后，刷新项目上下文
+- 当 Claude 反复犯同样的错误，你想添加规则时
 
-## Tips
+## 提示
 
-- Review what `/init` generates carefully. It is a starting point, not a final product
-- Add what Claude cannot infer on its own: deployment URLs, team conventions, known pitfalls
-- Keep `CLAUDE.md` under 200 lines. Move detailed material to `@imported` files
-- Commit to version control so your whole team shares the same context
+- 仔细审查 `/init` 生成的内容。这是一个起点，不是最终产品
+- 添加 Claude 无法自己推断的内容：部署 URL、团队约定、已知陷阱
+- 保持 `CLAUDE.md` 在 200 行以内。将详细材料移到 `@imported` 文件
+- 提交到版本控制，让你的团队共享相同的上下文

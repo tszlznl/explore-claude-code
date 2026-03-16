@@ -1,73 +1,73 @@
 ---
 name: my-skill
-description: What this skill does and when to use it. Claude reads this to decide relevance. Include keywords users would naturally say.
+description: 这个技能的作用以及何时使用它。Claude 阅读这个来决定相关性。包含用户自然会说的关键词。
 ---
 
-These two fields are the only ones required. `name` must be lowercase with hyphens, max 64 characters, and match the parent directory name. `description` is what Claude reads at startup to decide when the skill is relevant (max 1024 characters).
+这两个字段是唯一的必填字段。`name` 必须是小写带连字符，最多 64 个字符，并且与父目录名匹配。`description` 是 Claude 在启动时阅读以决定技能何时相关的内容（最多 1024 个字符）。
 
-## Optional Frontmatter Fields
+## 可选 Frontmatter 字段
 
-Add any of these to the `---` block above to customise behaviour:
+在上面的 `---` 块中添加任何这些字段来自定义行为：
 
-| Field | Example | Purpose |
+| 字段 | 示例 | 目的 |
 |---|---|---|
-| `argument-hint` | `[issue-number]` | Hint shown during autocomplete to indicate expected arguments |
-| `disable-model-invocation` | `true` | Prevent Claude from auto-loading. User must type `/name` explicitly. Use for deploys, sends, destructive ops |
-| `user-invocable` | `false` | Hide from the `/` menu. Claude can still load it automatically. Use for background knowledge |
-| `allowed-tools` | `Read, Grep, Bash(npm *)` | Tools Claude can use without asking permission. Space-delimited, supports patterns |
-| `model` | `claude-sonnet-4-6` | Override the model when this skill is active. Useful for cost control |
-| `context` | `fork` | Run in an [isolated subagent](^A separate Claude instance with its own context. The skill content becomes the subagent's system prompt). Skill content becomes the subagent's prompt |
-| `agent` | `Explore` | Which subagent runs when `context: fork`. Built-in: `Explore`, `Plan`, `general-purpose`, or custom from `.claude/agents/` |
-| `license` | `Apache-2.0` | License name or reference to a bundled LICENSE file |
-| `compatibility` | `Requires git, docker` | Environment requirements (max 500 chars) |
-| `metadata` | key-value pairs | Arbitrary metadata (author, version, etc.) |
+| `argument-hint` | `[issue-number]` | 自动完成时显示的提示，指示期望的参数 |
+| `disable-model-invocation` | `true` | 阻止 Claude 自动加载。用户必须明确输入 `/name`。用于部署、发送、破坏性操作 |
+| `user-invocable` | `false` | 从 `/` 菜单中隐藏。Claude 仍然可以自动加载它。用于背景知识 |
+| `allowed-tools` | `Read, Grep, Bash(npm *)` | Claude 可以无需询问权限就使用的工具。空格分隔，支持模式 |
+| `model` | `claude-sonnet-4-6` | 当此技能激活时覆盖模型。用于成本控制很有用 |
+| `context` | `fork` | 在 [隔离子代理](^一个具有自己上下文的独立 Claude 实例。技能内容成为子代理的系统提示) 中运行。技能内容成为子代理的提示 |
+| `agent` | `Explore` | 当 `context: fork` 时运行哪个子代理。内置：`Explore`、`Plan`、`general-purpose`，或来自 `.claude/agents/` 的自定义代理 |
+| `license` | `Apache-2.0` | 许可证名称或对捆绑 LICENSE 文件的引用 |
+| `compatibility` | `Requires git, docker` | 环境要求（最多 500 个字符） |
+| `metadata` | 键值对 | 任意元数据（作者、版本等） |
 
 ---
 
-# Body Content
+# 正文内容
 
-Everything below the frontmatter is the instruction body. Claude reads this when the skill is activated. Write whatever helps Claude perform the task. There are no format restrictions.
+frontmatter 下面的所有内容都是指令正文。Claude 会在技能激活时阅读这个。写任何能帮助 Claude 执行任务的内容。没有格式限制。
 
-Good body content includes:
+好的正文内容包括：
 
-- Step-by-step instructions for the task
-- Examples of inputs and expected outputs
-- Common edge cases and how to handle them
-- References to supporting files in this skill folder
+- 任务的分步指令
+- 输入和预期输出的示例
+- 常见边缘情况以及如何处理它们
+- 引用技能文件夹中的支持文件
 
-## String Substitutions
+## 字符串替换
 
-[Placeholders](^Variables in your SKILL.md that get replaced with real values before Claude sees the content) are replaced with real values before Claude sees the content:
+[占位符](^SKILL.md 中的变量，在 Claude 看到内容之前被替换为实际值) 在 Claude 看到内容之前被替换为实际值：
 
-| Placeholder | Resolves To |
+| 占位符 | 解析为 |
 |---|---|
-| `$ARGUMENTS` | Everything the user typed after the skill name |
-| `$ARGUMENTS[N]` or `$N` | A specific argument by index (0-based) |
-| `${CLAUDE_SESSION_ID}` | The current session ID |
-| `${CLAUDE_SKILL_DIR}` | Path to this skill's directory |
+| `$ARGUMENTS` | 用户在技能名称后输入的所有内容 |
+| `$ARGUMENTS[N]` 或 `$N` | 按索引特定的参数（从 0 开始） |
+| `${CLAUDE_SESSION_ID}` | 当前会话 ID |
+| `${CLAUDE_SKILL_DIR}` | 技能目录的路径 |
 
-Example: `/my-skill SearchBar React Vue` gives `$0` = "SearchBar", `$1` = "React", `$2` = "Vue".
+示例：`/my-skill SearchBar React Vue` 给出 `$0` = "SearchBar"，`$1` = "React"，`$2` = "Vue"。
 
-If `$ARGUMENTS` is not present in the content, arguments are appended as `ARGUMENTS: <value>`.
+如果内容中不存在 `$ARGUMENTS`，参数将作为 `ARGUMENTS: <value>` 附加。
 
-## Dynamic Context Injection
+## 动态上下文注入
 
-The `!` backtick syntax runs shell commands before the content reaches Claude. Output replaces the placeholder:
+`!` 反引号语法在内容到达 Claude 之前运行 shell 命令。输出替换占位符：
 
-- PR diff: `` !`gh pr diff` ``
-- Dependencies: `` !`cat package.json | jq .dependencies` ``
-- Changed files: `` !`git diff --name-only` ``
+- PR diff：`` !`gh pr diff` ``
+- 依赖：`` !`cat package.json | jq .dependencies` ``
+- 更改的文件：`` !`git diff --name-only` ``
 
-This is [preprocessing](^The commands run at skill load time, not during conversation. Claude only sees the final output, not the commands themselves). Claude only sees the final output, not the commands.
+这是 [预处理](^命令在技能加载时运行，不是在对话期间。Claude 只看到最终输出，而不是命令本身)。Claude 只看到最终输出，而不是命令。
 
 ---
 
-# Supporting Files
+# 支持文件
 
-Keep SKILL.md under 500 lines. Move detailed material to separate files and reference them from the body:
+保持 SKILL.md 在 500 行以内。将详细材料移到单独的文件并从正文中引用它们：
 
-- [references/REFERENCE.md](references/REFERENCE.md): Detailed documentation loaded on demand
-- [assets/template.md](assets/template.md): Templates and static resources
-- [scripts/helper.sh](scripts/helper.sh): Executable code Claude can run
+- [references/REFERENCE.md](references/REFERENCE.md)：按需加载的详细文档
+- [assets/template.md](assets/template.md)：模板和静态资源
+- [scripts/helper.sh](scripts/helper.sh)：Claude 可以运行的可执行代码
 
-Use relative paths from SKILL.md. Keep references one level deep. Navigate into these folders to learn more about each.
+从 SKILL.md 使用相对路径。保持引用在一层深度。导航到这些文件夹以了解更多关于每个文件夹的信息。

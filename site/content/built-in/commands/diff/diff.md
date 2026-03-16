@@ -1,40 +1,40 @@
 # /diff
 
-Opens an interactive diff viewer showing uncommitted changes in your working directory and per-turn diffs from Claude's edits.
+打开交互式 diff 查看器，显示工作目录中的未提交更改和 Claude 编辑的每轮 diff。
 
-## Usage
+## 用法
 
 ```
 /diff
 ```
 
-No arguments. The viewer opens immediately.
+无参数。查看器立即打开。
 
-## How It Works
+## 工作原理
 
-1. `/diff` launches a terminal-based diff viewer
-2. Use **left/right arrows** to switch between two views:
-   - **Git diff**: all uncommitted changes in the working directory
-   - **Turn diffs**: changes Claude made in each individual turn
-3. Use **up/down arrows** to browse files within the current view
-4. Press Escape or `q` to close
+1. `/diff` 启动基于终端的 diff 查看器
+2. 使用**左右方向键**在两个视图之间切换：
+   - **Git diff**：工作目录中所有未提交的更改
+   - **Turn diffs**：Claude 在每轮中进行的更改
+3. 使用**上下方向键**在当前视图中浏览文件
+4. 按 Escape 或 `q` 关闭
 
-## Two Views
+## 两个视图
 
-| View | What It Shows | Useful For |
+| 视图 | 显示内容 | 适用场景 |
 |---|---|---|
-| Git diff | All uncommitted changes (staged and unstaged) | Reviewing everything before a commit |
-| Turn diffs | Changes from each Claude turn, individually | Understanding what Claude changed and when |
+| Git diff | 所有未提交的更改（已暂存和未暂存） | 提交前审查所有更改 |
+| Turn diffs | 每轮 Claude 单独进行的更改 | 了解 Claude 何时进行了什么更改 |
 
-## When to Use It
+## 何时使用它
 
-- Before committing, to review all changes Claude has made
-- To understand which turn introduced a specific change
-- To verify Claude edited the right files before moving on
-- When you want a quick visual check without leaving the session
+- 提交前审查 Claude 所做的所有更改
+- 了解哪一轮引入了特定更改
+- 在继续之前验证 Claude 编辑了正确的文件
+- 想要快速可视化检查而不离开会话
 
-## Tips
+## 提示
 
-- `/diff` shows the same information as `git diff` but in an interactive, navigable viewer
-- Turn diffs are especially helpful after long sessions with many edits, where `git diff` alone does not tell you which step changed what
-- Combine with `/rewind` if you spot a change you want to undo: use `/diff` to find the turn, then `/rewind` to roll back to it
+- `/diff` 显示与 `git diff` 相同的信息，但使用交互式可导航查看器
+- 在包含多次编辑的长时间会话后，Turn diffs 特别有用，因为仅 `git diff` 无法告诉你哪个步骤更改了什么
+- 如果发现想要撤销的更改，可与 `/rewind` 结合使用：用 `/diff` 找到轮次，然后用 `/rewind` 回滚

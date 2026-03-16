@@ -1,5 +1,5 @@
 /**
- * App - Main controller. Loads manifest, wires components together.
+ * App - 主控制器。加载 manifest，组装组件。
  */
 
 class App {
@@ -12,21 +12,21 @@ class App {
   }
 
   async init() {
-    // Load manifest
+    // 加载 manifest
     try {
       const response = await fetch('data/manifest.json');
       this.manifest = await response.json();
     } catch (e) {
       console.error('Failed to load manifest.json:', e);
       document.getElementById('content').innerHTML =
-        '<p style="color:#ff5f57;padding:20px;">Failed to load manifest.json. Make sure you\'re serving the site directory.</p>';
+        '<p style="color:#ff5f57;padding:20px;">无法加载 manifest.json。请确保你正在服务 site 目录。</p>';
       return;
     }
 
-    // Count features
+    // 计算功能数量
     const featureCount = Object.keys(this.manifest.features).length;
 
-    // Initialize components
+    // 初始化组件
     this.contentLoader = new ContentLoader(this.manifest);
     this.progress = new ProgressTracker(featureCount);
 
@@ -34,25 +34,25 @@ class App {
       this._onFileSelected(node);
     });
 
-    // Render
+    // 渲染
     this.explorer.render();
     this.contentLoader.showWelcome();
     this.progress.init();
 
-    // Terminal
+    // 终端
     this.terminal = new Terminal();
     this.terminal.init();
 
-    // Mobile UI
+    // 移动端 UI
     this._setupMobile();
 
-    // Event listeners
+    // 事件监听器
     this._setupEventListeners();
 
-    // Hash navigation
+    // Hash 导航
     this._handleHash();
 
-    // Global reference
+    // 全局引用
     window.app = this;
   }
 
@@ -65,7 +65,7 @@ class App {
   }
 
   _setupEventListeners() {
-    // Keyboard navigation
+    // 键盘导航
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         e.preventDefault();
@@ -74,7 +74,7 @@ class App {
         e.preventDefault();
         this._navigate(1);
       }
-      // Escape exits void, fullscreen, or mobile panels
+      // Escape 退出虚空、全屏或移动端面板
       if (e.key === 'Escape') {
         const overlay = document.getElementById('void-overlay');
         if (overlay && overlay.classList.contains('active')) {
@@ -103,10 +103,10 @@ class App {
       }
     });
 
-    // Hash change
+    // Hash 变化
     window.addEventListener('hashchange', () => this._handleHash());
 
-    // Traffic light buttons
+    // 交通灯按钮
     this._setupTrafficLights();
   }
 
@@ -117,12 +117,12 @@ class App {
     const maximizeBtn = document.querySelector('.traffic-light--maximize');
     const escapeBtn = document.getElementById('void-escape');
 
-    // Close — playful wobble + tooltip
+    // 关闭 - 有趣的摆动 + 提示
     if (closeBtn) {
       closeBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         shell.classList.remove('wobble');
-        void shell.offsetWidth; // force reflow
+        void shell.offsetWidth; // 强制重绘
         shell.classList.add('wobble');
 
         const tooltip = document.getElementById('close-tooltip');
@@ -140,7 +140,7 @@ class App {
       });
     }
 
-    // Minimize — enter the void
+    // 最小化 - 进入虚空
     if (minimizeBtn) {
       minimizeBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -148,7 +148,7 @@ class App {
       });
     }
 
-    // Maximize — toggle fullscreen
+    // 最大化 - 切换全屏
     if (maximizeBtn) {
       maximizeBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -156,7 +156,7 @@ class App {
       });
     }
 
-    // Escape the void
+    // 逃离虚空
     if (escapeBtn) {
       escapeBtn.addEventListener('click', () => this._exitVoid());
     }

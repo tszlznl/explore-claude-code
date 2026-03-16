@@ -1,40 +1,40 @@
 ---
 name: debug
-description: Troubleshoot your current Claude Code session
+description: 排除当前 Claude Code 会话的故障
 argument-hint: [description]
 ---
 
 # /debug
 
-Troubleshoots your current Claude Code session by reading the session debug log. Optionally describe the issue to focus the analysis.
+通过阅读会话调试日志来排除当前 Claude Code 会话的故障。可选地描述问题以聚焦分析。
 
-## Usage
+## 用法
 
 ```
 /debug
-/debug why did my last tool call fail?
-/debug MCP server not connecting
+/debug 为什么我最后的工具调用失败了？
+/debug MCP 服务器未连接
 ```
 
-## How It Works
+## 工作原理
 
-Claude reads the internal debug log for your current session and analyses it for:
+Claude 阅读当前会话的内部调试日志，并分析：
 
-- **Tool call failures** and their root causes
-- **MCP server** connection issues
-- **Permission denials** and why they occurred
-- **Unexpected behaviour** patterns
+- **工具调用失败** 及其根本原因
+- **MCP 服务器** 连接问题
+- **权限拒绝** 及其发生原因
+- **意外行为** 模式
 
-The debug log contains detailed information about every tool call, API request, and internal event in your session. Far more than what is visible in the conversation.
+调试日志包含有关会话中每个工具调用、API 请求和内部事件的详细信息。远多于对话中可见的内容。
 
-## When to Use It
+## 何时使用它
 
-- When a tool call fails and the error message is not clear
-- When an MCP server is not connecting or responding as expected
-- When Claude's behaviour seems wrong and you want to understand why
-- When you need to report a bug and want diagnostic context
+- 当工具调用失败且错误消息不清晰时
+- 当 MCP 服务器未按预期连接或响应时
+- 当 Claude 的行为看起来不对且你想了解原因时
+- 当你需要报告 bug 并想要诊断上下文时
 
-## Tips
+## 提示
 
-- Describe the problem to focus the analysis: `/debug why can't Claude read my .env file` is more useful than just `/debug`
-- Run it immediately after hitting the issue. The debug log is session-scoped and will not persist across restarts
+- 描述问题以聚焦分析：`/debug 为什么 Claude 无法读取我的.env 文件` 比仅 `/debug` 更有用
+- 在遇到问题后立即运行它。调试日志是会话范围的，不会在重启后持久化

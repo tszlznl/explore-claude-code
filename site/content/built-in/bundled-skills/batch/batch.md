@@ -1,47 +1,47 @@
 ---
 name: batch
-description: Orchestrate large-scale parallel changes across a codebase
+description: 协调跨代码库的大规模并行更改
 argument-hint: <instruction>
 ---
 
 # /batch
 
-Orchestrates large-scale changes across your codebase in parallel. Provide a description of what you want changed, and `/batch` handles the rest: research, planning, parallel execution, and pull requests.
+在你的代码库中并行协调大规模更改。提供你想要更改的描述，`/batch` 处理其余内容：研究、计划、并行执行和拉取请求。
 
-## How It Works
+## 工作原理
 
-1. **Research** - Claude analyses your codebase to understand scope and structure
-2. **Decompose** - breaks the work into 5 to 30 independent units
-3. **Plan** - presents the plan for your approval before any code changes
-4. **Execute** - spawns one background agent per unit, each in an isolated [git worktree](^A git feature that creates a separate working directory sharing the same repository. Each agent gets its own files and branch without conflicts)
-5. **Deliver** - each agent implements its unit, runs tests, and opens a pull request
+1. **研究** - Claude 分析你的代码库以了解范围和结构
+2. **分解** - 将工作分解为 5 到 30 个独立单元
+3. **计划** - 在任何代码更改之前呈现计划以供你批准
+4. **执行** - 为每个单元生成一个后台代理，每个单元都在隔离的 [git worktree](^git 功能，创建共享同一仓库的单独工作目录。每个代理获得自己的文件和分支，不会冲突)
+5. **交付** - 每个代理实现其单元，运行测试，并打开拉取请求
 
-## Usage
+## 用法
 
 ```
-/batch migrate src/ from Solid to React
-/batch add structured logging to all API handlers
-/batch update all test files to use vitest instead of jest
+/batch 将 src/ 从 Solid 迁移到 React
+/batch 为所有 API 处理程序添加结构化日志
+/batch 更新所有测试文件以使用 vitest 代替 jest
 ```
 
-## Requirements
+## 要求
 
-- Must be in a **git repository** (worktree isolation requires git)
-- Changes must be **decomposable** into independent units
-- Works best with a good test suite so each agent can verify its work
+- 必须在 **git 仓库** 中（worktree 隔离需要 git）
+- 更改必须可以 **分解** 为独立单元
+- 最好的测试套件，以便每个代理可以验证其工作
 
-## Worktree Isolation
+## Worktree 隔离
 
-Each unit runs in its own git worktree at `<repo>/.claude/worktrees/<name>`. This means:
+每个单元在 `<repo>/.claude/worktrees/<name>` 运行在自己的 git worktree 中。这意味着：
 
-- Agents work in parallel without file conflicts
-- Each unit gets its own branch
-- Failed units do not affect other units
-- Worktrees are cleaned up automatically when agents finish without changes
+- 代理并行工作，没有文件冲突
+- 每个单元获得自己的分支
+- 失败的单元不会影响其他单元
+- 当代理完成且没有更改时，worktrees 会自动清理
 
-## When to Use It
+## 何时使用它
 
-- Large-scale migrations (framework, library, API version)
-- Codebase-wide refactors (rename patterns, update imports)
-- Adding consistent features across many files (logging, error handling, tests)
-- Any change that touches many files in a repeatable pattern
+- 大规模迁移（框架、库、API 版本）
+- 全代码库重构（重命名模式、更新导入）
+- 在许多文件中添加一致的功能（日志、错误处理、测试）
+- 任何以可重复模式触及许多文件的更改

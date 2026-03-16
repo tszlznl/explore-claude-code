@@ -1,60 +1,60 @@
-# Custom Slash Commands (Deprecated)
+# 自定义斜杠命令（已弃用）
 
-Markdown files that create reusable `/slash-commands`. Commands have been [merged into skills](^Commands and skills are now the same system. A command file at .claude/commands/review.md and a skill at .claude/skills/review/SKILL.md both create /review and work identically), but existing command files still work and this directory is still supported.
+创建可重用 `/slash-commands` 的 Markdown 文件。命令已经 [合并到技能中](^命令和技能现在是同一个系统。`.claude/commands/review.md` 处的命令文件和 `.claude/skills/review/SKILL.md` 处的技能都创建 `/review` 并且工作方式相同)，但现有命令文件仍然有效，此目录仍然受支持。
 
-## Quick Start
+## 快速开始
 
-1. Create a `.md` file in `.claude/commands/`
-2. Write a prompt inside it. Use `$ARGUMENTS` as a placeholder for user input
-3. The filename becomes the command name: `review-pr.md` creates `/review-pr`
-4. Type `/` in Claude Code to see and run your commands
+1. 在 `.claude/commands/` 中创建 `.md` 文件
+2. 在里面编写提示。使用 `$ARGUMENTS` 作为用户输入的占位符
+3. 文件名成为命令名：`review-pr.md` 创建 `/review-pr`
+4. 在 Claude Code 中输入 `/` 查看并运行你的命令
 
-## How It Works
+## 工作原理
 
-1. Claude scans `.claude/commands/` at startup and registers each `.md` file as a slash command
-2. When you invoke `/command-name`, Claude reads the file and replaces `$ARGUMENTS` with whatever you typed after the command
-3. The expanded prompt is sent to Claude as if you had typed it manually
+1. Claude 在启动时扫描 `.claude/commands/` 并将每个 `.md` 文件注册为斜杠命令
+2. 当你调用 `/command-name` 时，Claude 读取文件并用你输入的内容替换 `$ARGUMENTS`
+3. 扩展后的提示被发送给 Claude，就像你手动输入的一样
 
-## Commands vs Skills
+## 命令与技能
 
-Commands are the simpler, original system. Skills are the newer, more powerful replacement.
+命令是更简单、原始的系统。技能是更新的、更强大的替代品。
 
-| | Commands | Skills |
+| | 命令 | 技能 |
 |---|---|---|
-| File location | `.claude/commands/name.md` | `.claude/skills/name/SKILL.md` |
-| Invocation | `/name` only | `/name` or auto-loaded |
-| Arguments | `$ARGUMENTS` only | `$ARGUMENTS`, `$N`, env vars |
-| Frontmatter | Not supported | Full frontmatter (model, tools, invocation control) |
-| Supporting files | None | scripts/, references/, assets/ |
-| Dynamic context | Not supported | `!`backtick`` shell injection |
+| 文件位置 | `.claude/commands/name.md` | `.claude/skills/name/SKILL.md` |
+| 调用 | 仅 `/name` | `/name` 或自动加载 |
+| 参数 | 仅 `$ARGUMENTS` | `$ARGUMENTS`、`$N`、环境变量 |
+| Frontmatter | 不支持 | 完整 frontmatter（模型、工具、调用控制） |
+| 支持文件 | 无 | scripts/、references/、assets/ |
+| 动态上下文 | 不支持 | `!` 反引号 shell 注入 |
 
-If you are starting fresh, use skills instead. If you have existing commands, they will continue to work without changes.
+如果你从头开始，使用技能代替。如果你有现有命令，它们将继续工作而无需更改。
 
-## Where Commands Live
+## 命令存放位置
 
-| Location | Path | Scope |
+| 位置 | 路径 | 范围 |
 |---|---|---|
-| Project | `.claude/commands/` | Shared with your team (committed) |
-| Personal | `~/.claude/commands/` | All your projects (not committed) |
+| 项目 | `.claude/commands/` | 与你的团队共享（已提交） |
+| 个人 | `~/.claude/commands/` | 你的所有项目（未提交） |
 
-## Migrating to Skills
+## 迁移到技能
 
-To convert a command to a skill:
+要将命令转换为技能：
 
-1. Create `.claude/skills/command-name/SKILL.md`
-2. Add frontmatter with `name` and `description`
-3. Move your prompt into the body
-4. Delete the original command file
+1. 创建 `.claude/skills/command-name/SKILL.md`
+2. 添加带有 `name` 和 `description` 的 frontmatter
+3. 将你的提示移到正文中
+4. 删除原始命令文件
 
-The `/command-name` invocation stays the same. You gain frontmatter controls, supporting files, and auto-loading.
+`/command-name` 调用保持相同。你获得 frontmatter 控制、支持文件和自动加载。
 
-## Tips
+## 提示
 
-- Keep commands focused on one task
-- Include project-specific context (conventions, patterns) in the prompt
-- Use `$ARGUMENTS` to make commands flexible: `/review-pr focus on auth changes`
-- Commands and skills with the same name will conflict. Use one or the other
+- 保持命令专注于一项任务
+- 在提示中包含项目特定的上下文（约定、模式）
+- 使用 `$ARGUMENTS` 使命令灵活：`/review-pr 关注 auth 更改`
+- 相同名称的命令和技能会冲突。使用其中一个
 
-## Explore the Scaffolding
+## 探索结构
 
-Open the `my-command/` folder below to see the structure of a command file with every section explained.
+打开下面的 `my-command/` 文件夹，查看命令文件的结构，每个部分都有解释。

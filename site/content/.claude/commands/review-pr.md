@@ -1,16 +1,16 @@
-Review the changes in this PR. Focus on:
+审查此 PR 中的更改。重点关注：
 
-1. **Correctness** - Does the logic do what it claims?
-2. **Security** - Any injection risks, leaked secrets, or auth bypasses?
-3. **Types** - Are TypeScript types accurate and specific (no `any`)?
-4. **Tests** - Are edge cases covered? Are mocks appropriate?
-5. **Style** - Does it follow our conventions in CLAUDE.md?
+1. **正确性** - 逻辑是否做了它声称的事情？
+2. **安全性** - 任何注入风险、泄露的密钥或身份验证绕过？
+3. **类型** - TypeScript 类型是否准确和具体（无 `any`）？
+4. **测试** - 边缘情况是否被覆盖？mock 是否恰当？
+5. **风格** - 是否遵循 CLAUDE.md 中的约定？
 
-For each issue found, classify as:
-- 🔴 **Must fix** - Bugs, security issues, broken types
-- 🟡 **Should fix** - Missing tests, unclear naming, minor issues
-- 🟢 **Nit** - Style preferences, optional improvements
+对于发现的每个问题，分类为：
+- 🔴 **必须修复** - bug、安全问题、损坏的类型
+- 🟡 **应该修复** - 缺少测试、不清晰的命名、小问题
+- 🟢 **建议** - 风格偏好、可选的改进
 
-Start by running `git diff main...HEAD` to see all changes.
+首先运行 `git diff main...HEAD` 查看所有更改。
 
 $ARGUMENTS

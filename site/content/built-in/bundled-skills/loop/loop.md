@@ -1,76 +1,76 @@
 ---
 name: loop
-description: Run a prompt repeatedly on an interval
+description: 按间隔重复运行提示
 argument-hint: [interval] <prompt>
 ---
 
 # /loop
 
-Runs a prompt repeatedly on an interval while your session stays open. Claude parses the interval, schedules a recurring [cron task](^A time-based job scheduler. /loop converts your interval into a standard 5-field cron expression under the hood), and confirms the cadence.
+按间隔重复运行提示，而你的会话保持打开。Claude 解析间隔，调度定期的 [cron 任务](^基于时间的作业调度程序。/loop 在底层将你的间隔转换为标准的 5 字段 cron 表达式)，并确认节奏。
 
-## Usage
+## 用法
 
 ```
-/loop 5m check if the deployment finished
+/loop 5m 检查部署是否完成
 /loop 30m /review-pr 1234
-/loop check the build
+/loop 检查构建
 ```
 
-## Interval Syntax
+## 间隔语法
 
-| Form | Example | Parsed Interval |
+| 形式 | 示例 | 解析间隔 |
 |---|---|---|
-| Leading token | `/loop 30m check the build` | Every 30 minutes |
-| Trailing `every` clause | `/loop check the build every 2h` | Every 2 hours |
-| No interval | `/loop check the build` | Default: every 10 minutes |
+| 前导标记 | `/loop 30m 检查构建` | 每 30 分钟 |
+| 尾随 `every` 子句 | `/loop 检查构建 every 2h` | 每 2 小时 |
+| 无间隔 | `/loop 检查构建` | 默认：每 10 分钟 |
 
-Supported units: `s` (seconds), `m` (minutes), `h` (hours), `d` (days). Seconds are rounded up to the nearest minute since cron has one-minute granularity.
+支持的单位：`s`（秒）、`m`（分钟）、`h`（小时）、`d`（天）。秒被四舍五入到最近的分钟，因为 cron 有一分钟的粒度。
 
-## How It Works
+## 工作原理
 
-Under the hood, `/loop` creates a session-scoped cron task using `CronCreate`. Key behaviours:
+在底层，`/loop` 使用 `CronCreate` 创建会话范围的 cron 任务。关键行为：
 
-- Tasks fire **between your turns**, not while Claude is mid-response
-- Recurring tasks **expire after 3 days** automatically
-- A small deterministic [jitter](^A random delay added to prevent all sessions from hitting the API at the same moment. Up to 10% of the period, capped at 15 minutes) staggers API traffic
-- All times use your **local timezone**
-- Up to **50 scheduled tasks** per session
+- 任务在 **你的回合之间** 触发，不是在 Claude 响应中途
+- 重复任务 **在 3 天后自动过期**
+- 小的确定性 [jitter](^添加的随机延迟以防止所有会话在同一时刻击中 API。最多为周期的 10%，上限为 15 分钟) 交错 API 流量
+- 所有时间使用你的 **本地时区**
+- 每个会话最多 **50 个计划任务**
 
-## One-Time Reminders
+## 一次性提醒
 
-For one-shot reminders, use natural language instead of `/loop`:
-
-```
-remind me at 3pm to push the release branch
-in 45 minutes, check whether the integration tests passed
-```
-
-## Managing Tasks
+对于一次性提醒，使用自然语言而不是 `/loop`：
 
 ```
-what scheduled tasks do I have?
-cancel the deploy check job
+提醒我下午 3 点推送发布分支
+45 分钟后，检查集成测试是否通过
 ```
 
-Or use the tools directly:
+## 管理任务
 
-| Tool | Purpose |
+```
+我有什么计划任务？
+取消部署检查作业
+```
+
+或直接使用工具：
+
+| 工具 | 目的 |
 |---|---|
-| `CronCreate` | Schedule a new task with a 5-field cron expression |
-| `CronList` | List all scheduled tasks with IDs and schedules |
-| `CronDelete` | Cancel a task by ID |
+| `CronCreate` | 使用 5 字段 cron 表达式调度新任务 |
+| `CronList` | 列出所有计划任务及其 ID 和时间表 |
+| `CronDelete` | 按 ID 取消任务 |
 
-## Desktop Scheduled Tasks
+## 桌面计划任务
 
-For **durable scheduling** that survives restarts, use Desktop's scheduled tasks instead. These run on your machine as long as the desktop app is open and support:
+对于 **持久化调度** 在重启后仍然存在，使用桌面的计划任务代替。只要桌面应用打开，这些就在你的机器上运行，并支持：
 
-- **Manual, hourly, daily, weekday, and weekly** frequencies
-- **Missed-run catch-up**: one catch-up run fires on wake if your computer was asleep
-- **Permission management**: save tool approvals per task
-- **Worktree isolation**: each run gets its own git worktree
+- **手动、每小时、每天、工作日和每周** 频率
+- **错过运行捕获**：如果计算机处于睡眠状态，唤醒时会触发一次捕获运行
+- **权限管理**：为每个任务保存工具批准
+- **Worktree 隔离**：每次运行获得自己的 git worktree
 
-## Limitations
+## 限制
 
-- **Session-scoped**: closing the terminal cancels everything
-- **No catch-up** for missed fires in CLI (Desktop has catch-up)
-- **No persistence** across restarts. Use Desktop or GitHub Actions for durable scheduling
+- **会话范围**：关闭终端会取消所有内容
+- CLI 中错过触发 **无捕获**（桌面有捕获）
+- **无持久化** 跨重启。使用桌面或 GitHub Actions 进行持久化调度

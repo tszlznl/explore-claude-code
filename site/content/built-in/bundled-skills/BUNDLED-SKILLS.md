@@ -1,50 +1,50 @@
-# Bundled Skills
+# 捆绑技能
 
-Bundled skills ship with Claude Code and are available in every session. Unlike [custom skills](^Skills you create in .claude/skills/ - see the skills section above) you build in `.claude/skills/`, bundled skills are **prompt-based playbooks** maintained by Anthropic. They give Claude a detailed set of instructions and let it orchestrate the work using its tools, spawning parallel agents, reading files, and adapting to your codebase.
+捆绑技能随 Claude Code 一起提供，在每个会话中可用。与你在 `.claude/skills/` 中创建的 [自定义技能](^你在 .claude/skills/ 中创建的技能 - 参见上面的技能部分）不同，捆绑技能是由 Anthropic 维护的 **基于提示的手册**。它们为 Claude 提供详细的指令集，并让它使用其工具协调工作，生成并行代理、读取文件，并适应你的代码库。
 
-You invoke bundled skills the same way as any other skill: type `/` followed by the skill name.
+你调用捆绑技能的方式与任何其他技能相同：输入 `/` 后跟技能名称。
 
-## Available Skills
+## 可用技能
 
-| Skill | What It Does |
+| 技能 | 作用 |
 |---|---|
-| `/simplify` | Spawns 3 review agents in parallel to check reuse, quality, and efficiency |
-| `/batch <instruction>` | Decomposes large changes into independent units, executes each in a worktree |
-| `/debug [description]` | Reads your session's debug log to troubleshoot issues |
-| `/loop [interval] <prompt>` | Schedules a recurring cron task to re-run a prompt on an interval |
-| `/claude-api` | Loads API and SDK reference material for your project's language |
+| `/simplify` | 并行生成 3 个审查代理来检查重用、质量和效率 |
+| `/batch <instruction>` | 将大型更改分解为独立单元，在每个 worktree 中执行 |
+| `/debug [description]` | 阅读会话的调试日志以排除问题 |
+| `/loop [interval] <prompt>` | 调度定期的 cron 任务以按间隔重新运行提示 |
+| `/claude-api` | 为项目的语言加载 API 和 SDK 参考材料 |
 
-## How They Differ from Custom Skills
+## 与自定义技能的区别
 
-| | Custom Skills | Bundled Skills |
+| | 自定义技能 | 捆绑技能 |
 |---|---|---|
-| Location | `.claude/skills/` in your project | Ships with Claude Code |
-| Created by | You | Anthropic |
-| Editable | Yes | No |
-| Committed to git | Yes | N/A |
-| Invocation | `/skill-name` or auto-loaded | `/skill-name` only |
-| Can spawn agents | Via `context: fork` | Built-in parallelism |
+| 位置 | 项目中的 `.claude/skills/` | 随 Claude Code 附带 |
+| 创建者 | 你 | Anthropic |
+| 可编辑 | 是 | 否 |
+| 提交到 git | 是 | 不适用 |
+| 调用 | `/skill-name` 或自动加载 | 仅 `/skill-name` |
+| 可以生成代理 | 通过 `context: fork` | 内置并行性 |
 
-## How They Work
+## 工作原理
 
-Bundled skills are different from [built-in commands](^Commands like /help, /compact, /model, /cost that execute fixed logic directly. Bundled skills are prompt-based and can use tools) like `/help` or `/compact`. Built-in commands execute fixed logic directly. Bundled skills are **prompt-driven**: Claude receives a detailed playbook and orchestrates the work using its tools. This means they can:
+捆绑技能与 [内置命令](^如 /help、/compact、/model、/cost 等直接执行固定逻辑的命令。捆绑技能是基于提示的，可以使用工具）如 `/help` 或 `/compact` 不同。内置命令直接执行固定逻辑。捆绑技能是 **提示驱动的**：Claude 接收详细的手册并使用其工具协调工作。这意味着它们可以：
 
-- Spawn parallel [subagents](^Isolated Claude instances that work on a focused task and report back. See the agents section for details) for concurrent work
-- Read and analyse your codebase to adapt their behaviour
-- Run commands, create files, and make commits
-- Chain other skills and tools together
+- 为并发工作生成并行 [子代理](^在专注任务上工作并报告回来的独立 Claude 实例。参见代理部分了解详情)
+- 阅读和分析你的代码库以适应其行为
+- 运行命令、创建文件和提交
+- 链接其他技能和工具
 
-## Passing Arguments
+## 传递参数
 
-Most bundled skills accept arguments after the skill name:
+大多数捆绑技能接受技能名称后的参数：
 
 ```
-/simplify focus on memory efficiency
-/batch migrate all components from class to functional
-/debug why did the MCP server disconnect
-/loop 5m check if CI passed
+/simplify 关注内存效率
+/batch 将所有组件从 class 迁移到 functional
+/debug 为什么 MCP 服务器断开连接
+/loop 5m 检查 CI 是否通过
 ```
 
-## Explore Each Skill
+## 探索每个技能
 
-Open the folders below to see how each bundled skill works in detail.
+打开下面的文件夹以详细了解每个捆绑技能的工作原理。

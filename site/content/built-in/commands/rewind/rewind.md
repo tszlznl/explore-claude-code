@@ -1,52 +1,52 @@
 # /rewind
 
-Restores your conversation and code to a previous point in the session. Claude Code takes [checkpoints](^Automatic snapshots of your git state taken before Claude makes changes. Each checkpoint records the conversation turn and the working tree state) before making changes, so you can safely undo work and try a different approach.
+将会话中的对话和代码恢复到之前的某个点。Claude Code 在进行更改之前会获取 [检查点](^在 Claude 进行更改之前自动获取的 git 状态快照。每个检查点记录对话轮次和工作树状态)，因此你可以安全地撤销工作并尝试不同的方法。
 
-## Usage
+## 用法
 
 ```
 /rewind
 ```
 
-No arguments. An interactive picker opens showing your conversation history.
+无参数。交互式选择器打开，显示你的对话历史。
 
-You can also trigger rewind by pressing `Esc` twice.
+你也可以按两次 `Esc` 触发回滚。
 
-## How It Works
+## 工作原理
 
-1. Claude Code shows a list of conversation turns, each with a summary of what happened
-2. You select the point you want to return to
-3. Claude Code restores both:
-   - **Conversation state**: messages after that point are removed
-   - **Code state**: file changes made after that point are reverted via git
-4. You continue the conversation from the restored point
+1. Claude Code 显示对话轮次列表，每轮都带有事件摘要
+2. 选择想要返回的点
+3. Claude Code 同时恢复：
+   - **对话状态**：该点之后的消息被移除
+   - **代码状态**：该点之后进行的文件更改通过 git 恢复
+4. 从恢复的点继续对话
 
-## What Gets Restored
+## 恢复什么
 
-| Restored | Not Restored |
+| 恢复 | 不恢复 |
 |---|---|
-| File changes (via git checkout) | External side effects (API calls, sent messages) |
-| Conversation history | Background task results |
-| Task list state | Terminal output |
+| 文件更改（通过 git checkout） | 外部副作用（API 调用、发送的消息） |
+| 对话历史 | 后台任务结果 |
+| 任务列表状态 | 终端输出 |
 
-## Summarise Mode
+## 摘要模式
 
-Instead of rewinding, you can choose to **summarise** from a selected message. This compresses everything from that point forward into a summary, similar to `/compact` but starting from a specific turn.
+你可以选择从选定的消息开始**摘要**，而不是回滚。这将从该点向后的所有内容压缩为摘要，类似于 `/compact`，但从特定轮次开始。
 
-## When to Use It
+## 何时使用它
 
-- Claude went down the wrong path and you want to try a different approach
-- An edit broke something and you want to undo it cleanly
-- You want to explore two different solutions from the same starting point (combine with `/fork`)
-- You accidentally approved a change you did not want
+- Claude 走错了方向，你想尝试不同的方法
+- 某个更改破坏了东西，你想干净地撤销
+- 想从同一起点探索两种不同的解决方案（与 `/fork` 结合使用）
+- 意外批准了不想要的更改
 
-## /rewind vs Git
+## /rewind 与 Git
 
-`/rewind` is not a replacement for git. It uses git under the hood (reverting to a checkpoint commit), but it also restores conversation state. Use `/rewind` when you want to undo both the code changes and the conversation that produced them. Use `git checkout` or `git stash` when you only want to undo code changes.
+`/rewind` 不是 git 的替代品。它在底层使用 git（恢复到检查点提交），但也恢复对话状态。当你想同时撤销代码更改和产生这些更改的对话时使用 `/rewind`。当你只想撤销代码更改时使用 `git checkout` 或 `git stash`。
 
-## Tips
+## 提示
 
-- Checkpoints are automatic. You do not need to create them manually
-- `/rewind` works best for recent changes. For older history, use git directly
-- Combine with `/diff` to inspect what each turn changed before deciding where to rewind to
-- Press `Esc` twice as a quick shortcut instead of typing `/rewind`
+- 检查点是自动的。你不需要手动创建它们
+- `/rewind` 对最近的更改最有效。对于更早的历史，直接使用 git
+- 与 `/diff` 结合使用，在决定回滚到哪里之前检查每轮更改了什么
+- 按两次 `Esc` 作为快速快捷方式，而不是输入 `/rewind`

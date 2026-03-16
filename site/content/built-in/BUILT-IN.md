@@ -1,35 +1,35 @@
-# Built-in Features
+# 内置功能
 
-Everything above the line is the **`.claude/` ecosystem**: configuration files, skills, agents, hooks, and plugins that you create and customise for your projects. That is the stuff you build.
+线上所有内容都是 **`.claude/` 生态系统**：你为项目创建和自定义的配置文件、技能、代理、钩子和插件。这些是你构建的东西。
 
-This section is different. These are features that **ship with Claude Code** and require no setup. They exist whether or not you have a `.claude/` directory. You do not configure them, you do not create files for them, and you do not commit them to version control. They are just there, ready to use.
+本节不同。这些是 **随 Claude Code 附带** 且无需设置的功能。无论你是否拥有 `.claude/` 目录，它们都存在。你无需配置它们，无需为它们创建文件，也无需将它们提交到版本控制。它们就在那里，随时可用。
 
-## What You'll Find Here
+## 你会在这里找到什么
 
-### Bundled Skills
+### 捆绑技能
 
-Prompt-based workflows available in every Claude Code session. Unlike the custom skills you create in `.claude/skills/`, these are maintained by Anthropic and work out of the box.
+每个 Claude Code 会话中可用的基于提示的工作流。与你在 `.claude/skills/` 中创建的自定义技能不同，这些由 Anthropic 维护并开箱即用。
 
-- `/simplify` - Review and clean up your recent changes
-- `/batch` - Orchestrate large-scale parallel changes
-- `/debug` - Troubleshoot your current session
-- `/loop` - Run prompts on a recurring interval
-- `/claude-api` - Load API and SDK reference for your language
+- `/simplify` - 审查和清理你的最近更改
+- `/batch` - 协调大规模并行更改
+- `/debug` - 排除当前会话的故障
+- `/loop` - 按定期时间间隔运行提示
+- `/claude-api` - 为你的语言加载 API 和 SDK 参考
 
-### Built-in Commands
+### 内置命令
 
-Slash commands baked into Claude Code that run fixed logic directly. Session management, configuration, diagnostics, integrations, and more. Over 50 commands organised by category.
+内置于 Claude Code 中的斜杠命令，直接运行固定逻辑。会话管理、配置、诊断、集成等。超过 50 个命令按类别组织。
 
-- `/compact` - Compress conversation to reclaim context
-- `/btw` - Ask a side question without cluttering history
-- `/diff` - Interactive viewer for uncommitted changes
-- `/init` - Generate a starter CLAUDE.md from your codebase
-- `/rewind` - Restore conversation and code to a previous point
+- `/compact` - 压缩对话以回收上下文
+- `/btw` - 问一个侧边问题而不弄乱历史
+- `/diff` - 用于未提交更改的交互式查看器
+- `/init` - 从你的代码库生成初始 CLAUDE.md
+- `/rewind` - 将对话和代码恢复到之前的点
 
-### More Coming Soon
+### 更多内容即将推出
 
-This section will grow to cover other built-in capabilities like CLI flags, permission modes, keyboard shortcuts, and the auto-memory system.
+本节将扩展以涵盖其他内置功能，如 CLI 标志、权限模式、键盘快捷键和自动记忆系统。
 
-## Explore
+## 探索
 
-Open the folders below to see detailed breakdowns of each category.
+打开下面的文件夹以查看每个类别的详细分解。

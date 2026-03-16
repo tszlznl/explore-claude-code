@@ -1,24 +1,24 @@
-# references/ - Detailed Documentation
+# references/ - 详细文档
 
-This directory contains additional documentation that Claude reads only when it needs deeper context. This is part of the [progressive disclosure](^Load a little upfront, load more only when needed. SKILL.md stays focused, and detailed material lives here) model.
+此目录包含额外的文档，Claude 只在需要更深上下文时才会阅读。这是 [渐进式披露](^先加载一点，仅在需要时加载更多。SKILL.md 保持专注，详细材料放在这里) 模式的一部分。
 
-## What Goes Here
+## 放什么内容
 
-- Detailed technical reference (API specs, protocol docs)
-- Domain-specific knowledge (finance rules, legal requirements)
-- Extended examples and edge case documentation
-- Form templates or structured data formats
+- 详细技术参考（API 规范、协议文档）
+- 领域特定知识（财务规则、法律要求）
+- 扩展示例和边缘情况文档
+- 表单模板或结构化数据格式
 
-## How It Works
+## 工作原理
 
-1. SKILL.md references this file: "See [references/REFERENCE.md](references/REFERENCE.md) for details"
-2. Claude reads SKILL.md first (the main instructions)
-3. When Claude needs more detail, it follows the link and reads this file
-4. This keeps context usage efficient. Not everything loads at once
+1. SKILL.md 引用此文件："详情参见 [references/REFERENCE.md](references/REFERENCE.md)"
+2. Claude 先阅读 SKILL.md（主指令）
+3. 当 Claude 需要更多细节时，它会跟随链接并阅读此文件
+4. 这保持上下文使用高效。不是一次性加载所有内容
 
-## Best Practices
+## 最佳实践
 
-- Keep individual reference files focused on one topic
-- Smaller files mean less context usage when loaded
-- Use descriptive filenames: `api-spec.md`, `error-codes.md`, `migration-guide.md`
-- Keep file references one level deep from SKILL.md. Avoid deeply nested chains
+- 保持单个参考文件专注一个主题
+- 较小的文件意味着加载时使用更少的上下文
+- 使用描述性文件名：`api-spec.md`、`error-codes.md`、`migration-guide.md`
+- 从 SKILL.md 保持文件引用在一层深度。避免深层嵌套链

@@ -1,6 +1,6 @@
 /**
- * Terminal - Interactive Claude Code terminal emulator.
- * Supports slash commands with animated responses.
+ * Terminal - 交互式 Claude Code 终端模拟器。
+ * 支持带有动画响应的斜杠命令。
  */
 
 class Terminal {
@@ -43,7 +43,7 @@ class Terminal {
         this._navigateHistory(1);
       }
     });
-    // Prevent global keyboard nav when terminal is focused
+    // 当终端获得焦点时阻止全局键盘导航
     this.input.addEventListener('keydown', (e) => {
       e.stopPropagation();
     });
@@ -55,7 +55,7 @@ class Terminal {
 
     const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 
-    // On mobile, header/chevron taps close the terminal instead of collapsing
+    // 在移动端，标题栏/箭头按钮点击会关闭终端而不是折叠
     const handleToggle = () => {
       if (isMobile()) {
         this._closeMobile();
@@ -95,7 +95,7 @@ class Terminal {
     const onMouseMove = (e) => {
       if (!this.resizing) return;
       const delta = startX - e.clientX;
-      const maxWidth = mainLayout.offsetWidth - 300; // leave room for sidebar + content
+      const maxWidth = mainLayout.offsetWidth - 300; // 留出侧边栏和内容空间
       const newWidth = Math.max(200, Math.min(startWidth + delta, maxWidth));
       this.panel.style.width = newWidth + 'px';
     };
@@ -146,47 +146,47 @@ class Terminal {
         </div>
 
         <div class="term-banner-tagline">
-          Learn by doing. Every file is a lesson.<br>
-          Every folder is a chapter.
+          在实践中学习。每个文件都是一堂课。<br>
+          每个文件夹都是一个章节。
         </div>
 
         <div class="term-banner-divider"></div>
 
         <div class="term-banner-section">
-          <div class="term-banner-section__title">Quick Start</div>
+          <div class="term-banner-section__title">快速开始</div>
           <div class="term-banner-cmd-row">
             <span class="term-text--accent">/help</span>
-            <span class="term-text--dim">- list all commands</span>
+            <span class="term-text--dim">- 列出所有命令</span>
           </div>
           <div class="term-banner-cmd-row">
             <span class="term-text--accent">/init</span>
-            <span class="term-text--dim">- watch CLAUDE.md get created</span>
+            <span class="term-text--dim">- 观看 CLAUDE.md 被创建</span>
           </div>
           <div class="term-banner-cmd-row">
             <span class="term-text--accent">/doctor</span>
-            <span class="term-text--dim">- run a health check</span>
+            <span class="term-text--dim">- 运行健康检查</span>
           </div>
           <div class="term-banner-cmd-row">
             <span class="term-text--accent">/diff</span>
-            <span class="term-text--dim">- see a live diff demo</span>
+            <span class="term-text--dim">- 查看实时 diff 演示</span>
           </div>
         </div>
 
         <div class="term-banner-divider"></div>
 
         <div class="term-banner-section">
-          <div class="term-banner-section__title">How to Explore</div>
+          <div class="term-banner-section__title">如何探索</div>
           <div class="term-banner-step">
             <span class="term-banner-step__num">1</span>
-            <span>Browse the file tree on the left</span>
+            <span>浏览左侧文件树</span>
           </div>
           <div class="term-banner-step">
             <span class="term-banner-step__num">2</span>
-            <span>Click any file to learn what it does</span>
+            <span>点击任何文件了解它的作用</span>
           </div>
           <div class="term-banner-step">
             <span class="term-banner-step__num">3</span>
-            <span>Try commands here to see them in action</span>
+            <span>在这里尝试命令以查看实际效果</span>
           </div>
         </div>
 
@@ -194,15 +194,15 @@ class Terminal {
 
         <div class="term-banner-info">
           <div class="term-banner-row">
-            <span class="term-banner-key">version</span>
+            <span class="term-banner-key">版本</span>
             <span class="term-banner-val">1.0.42</span>
           </div>
           <div class="term-banner-row">
-            <span class="term-banner-key">model</span>
+            <span class="term-banner-key">模型</span>
             <span class="term-banner-val term-text--accent">claude-opus-4-6</span>
           </div>
           <div class="term-banner-row">
-            <span class="term-banner-key">project</span>
+            <span class="term-banner-key">项目</span>
             <span class="term-banner-val">my-project</span>
           </div>
         </div>
@@ -211,11 +211,11 @@ class Terminal {
   }
 
   _execute(rawCmd) {
-    // Store in history
+    // 存储到历史记录
     this.history.push(rawCmd);
     this.historyIndex = this.history.length;
 
-    // Echo the command
+    // 回显命令
     this._appendHtml(`
       <div class="term-cmd">
         <span class="term-prompt-echo">claude &gt;</span> ${this._esc(rawCmd)}
@@ -224,10 +224,10 @@ class Terminal {
 
     this.input.value = '';
 
-    // Parse command
+    // 解析命令
     const cmd = rawCmd.startsWith('/') ? rawCmd.split(/\s+/)[0].toLowerCase() : rawCmd.toLowerCase();
 
-    // Route to handler
+    // 路由到处理程序
     const handlers = {
       '/help': () => this._cmdHelp(),
       '/init': () => this._cmdInit(),
@@ -247,8 +247,8 @@ class Terminal {
     } else {
       this._appendHtml(`
         <div class="term-block">
-          <div class="term-text--error">Unknown command: ${this._esc(rawCmd)}</div>
-          <div class="term-text--dim">Type <span class="term-text--accent">/help</span> to see available commands.</div>
+          <div class="term-text--error">未知命令：${this._esc(rawCmd)}</div>
+          <div class="term-text--dim">输入 <span class="term-text--accent">/help</span> 查看可用命令。</div>
         </div>
       `);
     }
@@ -262,21 +262,21 @@ class Terminal {
     this.input.value = this.historyIndex < this.history.length ? this.history[this.historyIndex] : '';
   }
 
-  // ── Command Handlers ──────────────────────────────────────
+  // ── 命令处理程序 ──────────────────────────────────────
 
   _cmdHelp() {
     const cmds = [
-      ['/help', 'Show this command reference'],
-      ['/init', 'Initialize a CLAUDE.md project file'],
-      ['/doctor', 'Check installation health'],
-      ['/cost', 'Show session token usage & cost'],
-      ['/compact', 'Compress conversation context'],
-      ['/model', 'View available models'],
-      ['/diff', 'Show uncommitted changes'],
-      ['/status', 'Version, model, and account info'],
-      ['/config', 'Open settings explorer'],
-      ['/memory', 'View auto-memory entries'],
-      ['/clear', 'Clear terminal output'],
+      ['/help', '显示此命令参考'],
+      ['/init', '初始化 CLAUDE.md 项目文件'],
+      ['/doctor', '检查安装健康状况'],
+      ['/cost', '显示会话 token 使用量和成本'],
+      ['/compact', '压缩对话上下文'],
+      ['/model', '查看可用模型'],
+      ['/diff', '显示未提交的更改'],
+      ['/status', '版本、模型和账户信息'],
+      ['/config', '打开设置浏览器'],
+      ['/memory', '查看自动记忆条目'],
+      ['/clear', '清除终端输出'],
     ];
 
     let rows = '';
@@ -286,75 +286,75 @@ class Terminal {
 
     this._appendHtml(`
       <div class="term-block">
-        <div class="term-heading">Available Commands</div>
+        <div class="term-heading">可用命令</div>
         <div class="term-table">${rows}</div>
         <hr class="term-hr">
-        <div class="term-text--dim">Tip: Use arrow keys to navigate command history.</div>
+        <div class="term-text--dim">提示：使用箭头键导航命令历史记录。</div>
       </div>
     `);
   }
 
   _cmdInit() {
     this._animateSequence([
-      { html: '<div class="term-text--dim">Scanning project structure...</div>', delay: 400 },
-      { html: '<div class="term-text">Found: package.json, tsconfig.json, src/</div>', delay: 600 },
-      { html: '<div class="term-text--dim">Generating project context...</div>', delay: 500 },
+      { html: '<div class="term-text--dim">正在扫描项目结构...</div>', delay: 400 },
+      { html: '<div class="term-text">找到：package.json, tsconfig.json, src/</div>', delay: 600 },
+      { html: '<div class="term-text--dim">正在生成项目上下文...</div>', delay: 500 },
       { html: '<hr class="term-hr">', delay: 200 },
-      { html: `<div class="term-heading">Created CLAUDE.md</div>`, delay: 300 },
-      { html: `<div class="term-text--dim">  # Project: my-project</div>`, delay: 100 },
+      { html: `<div class="term-heading">已创建 CLAUDE.md</div>`, delay: 300 },
+      { html: `<div class="term-text--dim">  # 项目：my-project</div>`, delay: 100 },
       { html: `<div class="term-text--dim">  </div>`, delay: 50 },
-      { html: `<div class="term-text--dim">  ## Tech Stack</div>`, delay: 100 },
+      { html: `<div class="term-text--dim">  ## 技术栈</div>`, delay: 100 },
       { html: `<div class="term-text--dim">  - TypeScript + React</div>`, delay: 80 },
-      { html: `<div class="term-text--dim">  - Vite for bundling</div>`, delay: 80 },
+      { html: `<div class="term-text--dim">  - Vite 用于打包</div>`, delay: 80 },
       { html: `<div class="term-text--dim">  - Tailwind CSS</div>`, delay: 80 },
       { html: `<div class="term-text--dim">  </div>`, delay: 50 },
-      { html: `<div class="term-text--dim">  ## Conventions</div>`, delay: 100 },
-      { html: `<div class="term-text--dim">  - Use functional components</div>`, delay: 80 },
-      { html: `<div class="term-text--dim">  - Prefer named exports</div>`, delay: 80 },
-      { html: `<div class="term-text--dim">  - Tests in __tests__/ directories</div>`, delay: 80 },
+      { html: `<div class="term-text--dim">  ## 约定</div>`, delay: 100 },
+      { html: `<div class="term-text--dim">  - 使用函数式组件</div>`, delay: 80 },
+      { html: `<div class="term-text--dim">  - 优先使用命名导出</div>`, delay: 80 },
+      { html: `<div class="term-text--dim">  - 测试文件在 __tests__/ 目录中</div>`, delay: 80 },
       { html: '<hr class="term-hr">', delay: 200 },
-      { html: '<div class="term-text--success">CLAUDE.md created successfully. Claude will use this as project context.</div>', delay: 0 },
+      { html: '<div class="term-text--success">CLAUDE.md 创建成功。Claude 将以此作为项目上下文。</div>', delay: 0 },
     ]);
   }
 
   _cmdDoctor() {
     const checks = [
-      ['Authentication', 'authenticated as user@example.com', true, 500],
-      ['Model access', 'claude-opus-4-6 available', true, 400],
-      ['Git repository', 'clean working tree', true, 350],
+      ['身份验证', '已验证身份为用户 user@example.com', true, 500],
+      ['模型访问', 'claude-opus-4-6 可用', true, 400],
+      ['Git 仓库', '工作区干净', true, 350],
       ['Node.js', 'v22.1.0', true, 300],
-      ['MCP servers', '2 connected (filesystem, github)', true, 450],
-      ['Permissions', 'settings.json loaded', true, 300],
-      ['CLAUDE.md', 'found at project root', true, 350],
+      ['MCP 服务器', '已连接 2 个（文件系统，github）', true, 450],
+      ['权限', 'settings.json 已加载', true, 300],
+      ['CLAUDE.md', '在项目根目录找到', true, 350],
     ];
 
     this._animateSequence([
-      { html: '<div class="term-heading">Running diagnostics...</div>', delay: 400 },
+      { html: '<div class="term-heading">正在运行诊断...</div>', delay: 400 },
       ...checks.map(([label, detail, pass, delay]) => ({
         html: `<div class="term-check">
-          <span class="term-check__icon term-check__icon--${pass ? 'pass' : 'fail'}">${pass ? '\u2713' : '\u2717'}</span>
+          <span class="term-check__icon term-check__icon--${pass ? 'pass' : 'fail'}">${pass ? '✓' : '✗'}</span>
           <span class="term-check__label">${label}</span>
           <span class="term-check__detail">${detail}</span>
         </div>`,
         delay,
       })),
       { html: '<hr class="term-hr">', delay: 200 },
-      { html: '<div class="term-text--success">All checks passed. Claude Code is ready.</div>', delay: 0 },
+      { html: '<div class="term-text--success">所有检查通过。Claude Code 已就绪。</div>', delay: 0 },
     ]);
   }
 
   _cmdCost() {
     this._appendHtml(`
       <div class="term-block">
-        <div class="term-heading">Session Usage</div>
-        <div class="term-stat"><span class="term-stat__key">Input tokens</span><span class="term-stat__val">42,817</span></div>
-        <div class="term-stat"><span class="term-stat__key">Output tokens</span><span class="term-stat__val">18,243</span></div>
-        <div class="term-stat"><span class="term-stat__key">Cache read</span><span class="term-stat__val">156,092</span></div>
-        <div class="term-stat"><span class="term-stat__key">Cache write</span><span class="term-stat__val">28,451</span></div>
+        <div class="term-heading">会话使用量</div>
+        <div class="term-stat"><span class="term-stat__key">输入 token</span><span class="term-stat__val">42,817</span></div>
+        <div class="term-stat"><span class="term-stat__key">输出 token</span><span class="term-stat__val">18,243</span></div>
+        <div class="term-stat"><span class="term-stat__key">缓存读取</span><span class="term-stat__val">156,092</span></div>
+        <div class="term-stat"><span class="term-stat__key">缓存写入</span><span class="term-stat__val">28,451</span></div>
         <hr class="term-hr">
-        <div class="term-stat"><span class="term-stat__key">Total cost</span><span class="term-stat__val term-stat__val--accent">$0.847</span></div>
-        <div class="term-stat"><span class="term-stat__key">Messages</span><span class="term-stat__val">23</span></div>
-        <div class="term-stat"><span class="term-stat__key">Duration</span><span class="term-stat__val">14m 32s</span></div>
+        <div class="term-stat"><span class="term-stat__key">总成本</span><span class="term-stat__val term-stat__val--accent">$0.847</span></div>
+        <div class="term-stat"><span class="term-stat__key">消息数</span><span class="term-stat__val">23</span></div>
+        <div class="term-stat"><span class="term-stat__key">时长</span><span class="term-stat__val">14 分 32 秒</span></div>
       </div>
     `);
   }
@@ -363,7 +363,7 @@ class Terminal {
     const block = document.createElement('div');
     block.className = 'term-block';
     block.innerHTML = `
-      <div class="term-text--dim">Compressing conversation context...</div>
+      <div class="term-text--dim">正在压缩对话上下文...</div>
       <div class="term-progress">
         <div class="term-progress__bar"><div class="term-progress__fill" id="compact-fill"></div></div>
         <span class="term-progress__label" id="compact-pct">0%</span>
@@ -387,10 +387,10 @@ class Terminal {
         setTimeout(() => {
           block.innerHTML += `
             <hr class="term-hr">
-            <div class="term-stat"><span class="term-stat__key">Before</span><span class="term-stat__val">187,204 tokens</span></div>
-            <div class="term-stat"><span class="term-stat__key">After</span><span class="term-stat__val term-stat__val--accent">24,817 tokens</span></div>
-            <div class="term-stat"><span class="term-stat__key">Reduction</span><span class="term-stat__val term-stat__val--accent">86.7%</span></div>
-            <div class="term-text--success" style="margin-top:6px">Context compacted. Conversation summary preserved.</div>
+            <div class="term-stat"><span class="term-stat__key">压缩前</span><span class="term-stat__val">187,204 tokens</span></div>
+            <div class="term-stat"><span class="term-stat__key">压缩后</span><span class="term-stat__val term-stat__val--accent">24,817 tokens</span></div>
+            <div class="term-stat"><span class="term-stat__key">压缩率</span><span class="term-stat__val term-stat__val--accent">86.7%</span></div>
+            <div class="term-text--success" style="margin-top:6px">上下文已压缩。对话摘要已保留。</div>
           `;
           this.isAnimating = false;
           this._scrollToBottom();
@@ -408,9 +408,9 @@ class Terminal {
 
   _cmdModel() {
     const models = [
-      ['claude-opus-4-6', 'Most capable, deep reasoning', true],
-      ['claude-sonnet-4-6', 'Fast, balanced performance', false],
-      ['claude-haiku-4-5', 'Fastest, lightweight tasks', false],
+      ['claude-opus-4-6', '最强大，深度推理', true],
+      ['claude-sonnet-4-6', '快速，平衡性能', false],
+      ['claude-haiku-4-5', '最快，轻量级任务', false],
     ];
 
     let rows = '';

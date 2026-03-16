@@ -1,53 +1,53 @@
 # /compact
 
-Compresses your conversation to reclaim context window space. Claude summarises the conversation so far, discards the original messages, and continues with the summary as its new starting point.
+压缩你的对话以回收上下文窗口空间。Claude 总结到目前为止的对话，丢弃原始消息，并继续将摘要作为新的起点。
 
-## Usage
+## 用法
 
 ```
 /compact
-/compact focus on the database migration work
-/compact keep the API design decisions, drop the debugging
+/compact 专注于数据库迁移工作
+/compact 保留 API 设计决策，删除调试内容
 ```
 
-## How It Works
+## 工作原理
 
-1. Claude reads the full conversation history
-2. It generates a compressed summary, preserving key decisions, code context, and task state
-3. The original messages are replaced with the summary
-4. `CLAUDE.md` is re-read from disk and re-injected fresh
-5. The conversation continues with the summary as context
+1. Claude 阅读完整的对话历史
+2. 生成压缩摘要，保留关键决策、代码上下文和任务状态
+3. 原始消息被摘要替换
+4. `CLAUDE.md` 从磁盘重新读取并重新注入
+5. 对话继续，将摘要作为上下文
 
-Optional focus instructions guide what to prioritise in the summary. Without them, Claude uses its own judgement about what matters most.
+可选的焦点指令指导在摘要中优先考虑什么。没有它们，Claude 使用自己的判断来决定什么最重要。
 
-## What Survives Compaction
+## 什么在压缩后存活
 
-| Preserved | Lost |
+| 保留 | 丢失 |
 |---|---|
-| `CLAUDE.md` content (re-loaded from disk) | Exact wording of earlier messages |
-| Key decisions and reasoning | Verbose tool output and debug logs |
-| Current task state and progress | Intermediate exploration steps |
-| Code snippets Claude is actively working with | Conversation tone and nuance |
-| Task list items | One-off instructions given only in chat |
+| `CLAUDE.md` 内容（从磁盘重新加载） | 早期消息的确切措辞 |
+| 关键决策和推理 | 详细的工具输出和调试日志 |
+| 当前任务状态和进度 | 中间探索步骤 |
+| Claude 积极使用的代码片段 | 对话语气和细微差别 |
+| 任务列表项 | 仅在聊天中给出的一次性指令 |
 
-## When to Use It
+## 何时使用它
 
-- The context window is getting full and Claude warns about capacity
-- You are switching focus within the same session and want to shed old context
-- Claude starts "forgetting" earlier instructions or repeating itself
-- After a long debugging session, before starting implementation
+- 上下文窗口变满且 Claude 警告容量
+- 你在同一会话中切换焦点并想要摆脱旧上下文
+- Claude 开始"忘记"早期指令或重复自己
+- 在长时间调试会话后，开始实现之前
 
-## /compact vs /clear
+## /compact 与 /clear
 
 | | /compact | /clear |
 |---|---|---|
-| Conversation history | Summarised and kept | Deleted entirely |
-| `CLAUDE.md` | Re-loaded | Re-loaded |
-| Task continuity | Preserved in summary | Lost |
-| Best for | Reclaiming space mid-task | Starting a completely new task |
+| 对话历史 | 摘要并保留 | 完全删除 |
+| `CLAUDE.md` | 重新加载 | 重新加载 |
+| 任务连续性 | 在摘要中保留 | 丢失 |
+| 最适合 | 任务中途回收空间 | 开始全新的任务 |
 
-## Tips
+## 提示
 
-- Anything you want Claude to remember permanently belongs in `CLAUDE.md`, not in conversation. `/compact` preserves CLAUDE.md; it does not preserve one-off chat instructions
-- Focus instructions help when your conversation covered multiple topics but you only care about one going forward
-- Context compaction also happens automatically when the window fills up. `/compact` lets you trigger it on your terms with guidance about what to keep
+- 任何你想要 Claude 永久记住的内容都属于 `CLAUDE.md`，而不是对话中。`/compact` 保留 CLAUDE.md；它不保留一次性聊天指令
+- 焦点指令有帮助当你的对话涵盖多个主题但你只关心一个主题时
+- 当窗口填满时上下文压缩也会自动发生。`/compact` 让你按照自己的条件触发它，并指导保留什么

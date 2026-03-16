@@ -1,71 +1,71 @@
-# Agents
+# 代理
 
-Agents are isolated Claude instances you create and configure for specialised tasks. They come in two forms: [subagents](^Focused workers that run inside your session, do a job, and return a summary) that operate within your session, and [agent teams](^Multiple independent Claude Code sessions coordinating through a shared task list) that coordinate across separate sessions.
+代理是你创建和配置用于专门任务的独立 Claude 实例。它们有两种形式：[子代理](^在你的会话中运行的专注工作者，完成工作后返回摘要) 在你的会话中运行，以及 [代理团队](^多个独立的 Claude Code 会话通过共享任务列表协调) 跨独立会话协调。
 
-## Quick Start
+## 快速开始
 
-1. Run `/agents` inside Claude Code to open the interactive agent manager
-2. Select **Create new agent**, then choose a scope (project or user)
-3. Use **Generate with Claude** and describe what the agent should do
-4. Select which tools the agent can access, pick a model, and save
+1. 在 Claude Code 中运行 `/agents` 打开交互式代理管理器
+2. 选择 **创建新代理**，然后选择范围（项目或用户）
+3. 使用 **与 Claude 一起生成** 并描述代理应该做什么
+4. 选择代理可以访问哪些工具，选择一个模型，然后保存
 
-Your agent is available immediately. Try it: "Use the my-agent agent to review this module."
+你的代理立即可用。试试它："使用 my-agent 代理来审查这个模块。"
 
-## How Subagents Work
+## 子代理如何工作
 
-Subagents are `.md` files with YAML frontmatter for configuration and a Markdown body that becomes the system prompt. Each subagent runs in its own context window, uses only the tools you allow, and returns a summary to your main conversation.
+子代理是带有 YAML frontmatter 用于配置的 `.md` 文件，以及成为系统提示的 Markdown 正文。每个子代理在自己的上下文窗口中运行，仅使用你允许的工具，并返回摘要到你的主对话。
 
-1. Claude matches your request to a subagent's `description` field
-2. A new context window is created with the subagent's system prompt
-3. The subagent works independently (reading files, running commands, etc.)
-4. Results are summarised back to your main conversation
+1. Claude 将你的请求与子代理的 `description` 字段匹配
+2. 创建一个新的上下文窗口，带有子代理的系统提示
+3. 子代理独立工作（读取文件、运行命令等）
+4. 结果被摘要返回到你的主对话
 
-Subagents can run in the foreground (blocking) or background (concurrent). Press `Ctrl+B` to send a running task to the background.
+子代理可以在前台（阻塞）或后台（并发）运行。按 `Ctrl+B` 将运行中的任务发送到后台。
 
-## Where Agents Live
+## 代理存放位置
 
-| Location | Scope | Priority |
+| 位置 | 范围 | 优先级 |
 |----------|-------|----------|
-| `--agents` CLI flag | Current session only | 1 (highest) |
-| `.claude/agents/` | This project (check into version control) | 2 |
-| `~/.claude/agents/` | All your projects | 3 |
-| Plugin `agents/` directory | Where the plugin is enabled | 4 (lowest) |
+| `--agents` CLI 标志 | 仅当前会话 | 1（最高） |
+| `.claude/agents/` | 此项目（检查到版本控制） | 2 |
+| `~/.claude/agents/` | 你的所有项目 | 3 |
+| 插件 `agents/` 目录 | 启用插件的位置 | 4（最低） |
 
-When multiple agents share the same name, the higher-priority location wins.
+当多个代理共享相同名称时，更高优先级的位置获胜。
 
-## Built-in Subagents
+## 内置子代理
 
-Claude Code ships with subagents it uses automatically:
+Claude Code 附带了自动使用的子代理：
 
-- **Explore**: fast, read-only codebase search (runs on Haiku)
-- **Plan**: structured planning and analysis
-- **General-purpose**: flexible helper for miscellaneous delegation
+- **Explore**：快速的只读代码库搜索（在 Haiku 上运行）
+- **Plan**：结构化规划和分析
+- **General-purpose**：用于杂项委托的灵活助手
 
-You can create custom agents that override built-ins by using the same name at a higher priority scope.
+你可以通过在更高优先级范围使用相同名称来创建覆盖内置代理的自定义代理。
 
-## Frontmatter Reference
+## Frontmatter 参考
 
-| Field | Required | Purpose |
+| 字段 | 必填 | 目的 |
 |-------|----------|---------|
-| `name` | Yes | Unique identifier (lowercase, hyphens) |
-| `description` | Yes | When Claude should delegate to this agent |
-| `tools` | No | Allowlist of tools (inherits all if omitted) |
-| `disallowedTools` | No | Denylist removed from inherited tools |
-| `model` | No | `sonnet`, `opus`, `haiku`, or `inherit` (default) |
-| `permissionMode` | No | `default`, `acceptEdits`, `dontAsk`, `bypassPermissions`, `plan` |
-| `maxTurns` | No | Maximum agentic turns before the agent stops |
-| `skills` | No | Skills to inject into the agent's context at startup |
-| `mcpServers` | No | MCP servers available to this agent |
-| `hooks` | No | Lifecycle hooks scoped to this agent |
-| `memory` | No | Persistent memory scope: `user`, `project`, or `local` |
-| `background` | No | Set `true` to always run as a background task |
-| `isolation` | No | Set `worktree` to run in a temporary git worktree |
+| `name` | 是 | 唯一标识符（小写，连字符） |
+| `description` | 是 | Claude 何时委托给这个代理 |
+| `tools` | 否 | 工具允许列表（如果省略则继承所有） |
+| `disallowedTools` | 否 | 从继承工具中移除的拒绝列表 |
+| `model` | 否 | `sonnet`、`opus`、`haiku` 或 `inherit`（默认） |
+| `permissionMode` | 否 | `default`、`acceptEdits`、`dontAsk`、`bypassPermissions`、`plan` |
+| `maxTurns` | 否 | 代理停止前的最大代理轮数 |
+| `skills` | 否 | 在启动时注入代理上下文的能力 |
+| `mcpServers` | 否 | 此代理可用的 MCP 服务器 |
+| `hooks` | 否 | 范围限定到此代理的生命周期钩子 |
+| `memory` | 否 | 持久化记忆范围：`user`、`project` 或 `local` |
+| `background` | 否 | 设置为 `true` 始终作为后台任务运行 |
+| `isolation` | 否 | 设置为 `worktree` 在临时 git worktree 中运行 |
 
-## Agent Teams
+## 代理团队
 
-Agent teams coordinate multiple independent Claude Code sessions working in parallel. One session acts as the lead; others are teammates with their own context windows.
+代理团队协调多个独立的 Claude Code 会话并行工作。一个会话作为主导；其他是拥有自己上下文窗口的队友。
 
-Agent teams are experimental. Enable them in `settings.json`:
+代理团队是实验性的。在 `settings.json` 中启用它们：
 
 ```json
 {
@@ -75,37 +75,37 @@ Agent teams are experimental. Enable them in `settings.json`:
 }
 ```
 
-Then describe the team structure in natural language:
+然后用自然语言描述团队结构：
 
 ```
-Create an agent team to review PR #142. Spawn three reviewers:
-one focused on security, one checking performance, one validating tests.
+创建一个代理团队来审查 PR #142。生成三个审查者：
+一个专注于安全，一个检查性能，一个验证测试。
 ```
 
-### Subagents vs Agent Teams
+### 子代理与代理团队
 
-| | Subagents | Agent Teams |
+| | 子代理 | 代理团队 |
 |---|-----------|-------------|
-| Communication | Report results back to caller only | Teammates message each other directly |
-| Context | Own window; results return to main session | Own window; fully independent |
-| Coordination | Main agent manages all work | Shared task list with self-coordination |
-| Best for | Focused tasks where only the result matters | Complex work requiring discussion |
-| Token cost | Lower (results summarised back) | Higher (each teammate is a separate instance) |
+| 通信 | 仅将结果报告回调用者 | 队友直接相互通信 |
+| 上下文 | 拥有自己的窗口；结果返回主会话 | 拥有自己的窗口；完全独立 |
+| 协调 | 主代理管理所有工作 | 共享任务列表与自协调 |
+| 最适合 | 仅结果重要的快速、专注任务 | 需要讨论的复杂工作 |
+| Token 成本 | 较低（结果被摘要返回） | 较高（每个队友是独立实例） |
 
-Use subagents for quick, focused workers. Use agent teams when teammates need to share findings and coordinate on their own.
+对快速、专注的工人使用子代理。当队友需要共享发现并自己协调时使用代理团队。
 
-## Common Patterns
+## 常见模式
 
-- **Isolate verbose output**: delegate test runs or log analysis to a subagent so the output stays out of your main context
-- **Parallel research**: spawn multiple subagents to investigate different parts of a codebase simultaneously
-- **Chain subagents**: use one for analysis, pass its findings to another for implementation
-- **Competing hypotheses**: spawn agent team members to investigate different theories and debate each other
+- **隔离详细输出**：将测试运行或日志分析委托给子代理，以便输出保持在主上下文之外
+- **并行研究**：生成多个子代理同时调查代码库的不同部分
+- **链式子代理**：使用一个进行分析，将其发现传递给另一个进行实现
+- **竞争假设**：生成团队成员调查不同的理论并相互辩论
 
-## Tips
+## 提示
 
-- Write detailed `description` fields so Claude knows when to delegate. Include "use proactively" for agents you want used automatically
-- Grant only the tools an agent needs. A read-only reviewer should not have Write or Edit
-- Subagents cannot spawn other subagents. For nested delegation, use skills or chain from the main conversation
-- Use `memory: user` to let agents build knowledge across sessions. Ask them to "check your memory" before starting and "save what you learned" after finishing
-- Agent teams work best with 3-5 teammates and 5-6 tasks each. More teammates means more coordination overhead
-- Teammates load `CLAUDE.md` from the working directory, so project conventions apply to the whole team
+- 编写详细的 `description` 字段，以便 Claude 知道何时委托。包含"主动使用"用于你想要自动使用的代理
+- 仅授予代理需要的工具。只读审查者不应具有 Write 或 Edit
+- 子代理不能生成其他子代理。对于嵌套委托，使用技能或从主对话链式
+- 使用 `memory: user` 让代理在会话之间建立知识。在开始前让他们"检查你的记忆"，在完成后"保存你学到的东西"
+- 代理团队最适合 3-5 个队友，每个队友 5-6 个任务。更多队友意味着更多协调开销
+- 队友从工作目录加载 `CLAUDE.md`，所以项目约定适用于整个团队

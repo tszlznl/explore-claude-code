@@ -1,60 +1,60 @@
 {
-  // .claude-plugin/plugin.json — Plugin Manifest
+  // .claude-plugin/plugin.json — 插件清单
   //
-  // This file defines your plugin's identity. Claude Code uses it
-  // to display your plugin in the plugin manager, namespace your
-  // skills, and track versions for updates.
+  // 此文件定义你的插件身份。Claude Code 使用它
+  // 在插件管理器中显示你的插件，命名你的技能，
+  // 并跟踪版本以进行更新。
   //
-  // This is the ONLY file that goes inside .claude-plugin/.
-  // All component directories (skills/, agents/, hooks/, etc.)
-  // live at the plugin root, NOT inside this directory.
+  // 这是唯一放入 .claude-plugin/ 内的文件。
+  // 所有组件目录（skills/、agents/、hooks/ 等）
+  // 位于插件根目录，而不是此目录内。
 
-  // ── Required fields ────────────────────────────────────────────
+  // ── 必填字段 ────────────────────────────────────────────
 
-  // Unique identifier. Also becomes the skill namespace prefix.
-  // A skill called "review" in this plugin → /my-plugin:review
+  // 唯一标识符。也成为技能命名空间前缀。
+  // 此插件中名为 "review" 的技能 → /my-plugin:review
   "name": "my-plugin",
 
-  // Shown in the plugin manager when browsing or installing.
-  "description": "A starter plugin showing the manifest format and available fields",
+  // 在浏览或安装时显示在插件管理器中。
+  "description": "一个入门插件，展示清单格式和可用字段",
 
-  // Semantic versioning: major.minor.patch
-  // Bump major for breaking changes, minor for features, patch for fixes.
-  // Claude Code uses this to detect updates.
+  // 语义化版本：major.minor.patch
+  // 破坏性更改 bump major，功能 bump minor，修复 bump patch。
+  // Claude Code 使用这个检测更新。
   "version": "1.0.0",
 
-  // ── Optional metadata ──────────────────────────────────────────
+  // ── 可选元数据 ──────────────────────────────────────────
 
-  // Attribution. Shown in plugin details.
+  // 归属。显示在插件详情中。
   "author": {
-    "name": "Your Name",
+    "name": "你的名字",
     "email": "you@example.com"
   },
 
-  // Documentation URL for your plugin
+  // 插件文档 URL
   "homepage": "https://github.com/your-org/my-plugin#readme",
 
-  // Source code repository
+  // 源代码仓库
   "repository": "https://github.com/your-org/my-plugin",
 
-  // SPDX license identifier (MIT, Apache-2.0, etc.)
+  // SPDX 许可证标识符（MIT、Apache-2.0 等）
   "license": "MIT",
 
-  // Tags for discovery and categorisation in marketplaces
+  // 市场中用于发现和分类的标签
   "keywords": ["starter", "example", "scaffold"]
 
-  // ── Component overrides (advanced) ─────────────────────────────
+  // ── 组件覆盖（高级） ─────────────────────────────
   //
-  // By default, Claude Code discovers components by scanning
-  // standard directories at the plugin root:
+  // 默认情况下，Claude Code 通过扫描
+  // 插件根目录的标准目录来发现组件：
   //   skills/    → Agent Skills
-  //   commands/  → Slash commands
-  //   agents/    → Custom agents
-  //   hooks/     → hooks.json event handlers
-  //   .mcp.json  → MCP server configs
-  //   .lsp.json  → LSP server configs
+  //   commands/  → 斜杠命令
+  //   agents/    → 自定义代理
+  //   hooks/     → hooks.json 事件处理程序
+  //   .mcp.json  → MCP 服务器配置
+  //   .lsp.json  → LSP 服务器配置
   //
-  // You can override these with explicit paths:
+  // 你可以使用显式路径覆盖这些：
   //
   //   "commands": ["./commands/core/", "./commands/extra/review.md"],
   //   "agents": ["./agents/security-reviewer.md"],
@@ -62,5 +62,5 @@
   //   "mcpServers": { "my-db": { "command": "..." } },
   //   "lspServers": { "go": { "command": "gopls" } }
   //
-  // Most plugins don't need these — the defaults work.
+  // 大多数插件不需要这些 — 默认值工作正常。
 }

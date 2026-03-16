@@ -1,38 +1,38 @@
 ---
 name: simplify
-description: Review changed code for reuse, quality, and efficiency
+description: 审查更改的代码以查找重用、质量和效率问题
 ---
 
 # /simplify
 
-Reviews your recently changed files for code reuse, quality, and efficiency issues, then fixes them. Run it after implementing a feature or bug fix to clean up your work.
+审查你最近更改的文件以查找代码重用、质量和效率问题，然后修复它们。在实现功能或 bug 修复后运行它以清理你的工作。
 
-## How It Works
+## 工作原理
 
-When you invoke `/simplify`, Claude spawns **three review agents in parallel**:
+当你调用 `/simplify` 时，Claude 会 **并行生成三个审查代理**：
 
-1. **Code reuse** - finds duplicated logic, missed abstractions, and opportunities to share code
-2. **Code quality** - catches bugs, unclear naming, missing error handling, and style issues
-3. **Efficiency** - spots unnecessary allocations, redundant computations, and performance pitfalls
+1. **代码重用** - 查找重复的逻辑、错过的抽象和共享代码的机会
+2. **代码质量** - 捕获 bug、不清晰的命名、缺少错误处理和风格问题
+3. **效率** - 发现不必要的分配、重复的计算和性能陷阱
 
-After all three agents report back, Claude aggregates their findings, deduplicates overlapping issues, and applies fixes directly.
+在三个代理都报告回来后，Claude 聚合它们的发现，去重重叠的问题，并直接应用修复。
 
-## Usage
+## 用法
 
 ```
 /simplify
 ```
 
-Focus the review on specific concerns:
+将审查集中在特定的关注点：
 
 ```
-/simplify focus on memory efficiency
-/simplify only check for code reuse in the auth module
+/simplify 关注内存效率
+/simplify 仅检查 auth 模块中的代码重用
 ```
 
-## When to Use It
+## 何时使用它
 
-- After completing a feature or bug fix, before committing
-- When you have been iterating quickly and want a cleanup pass
-- After a large refactor to catch anything you missed
-- Before opening a pull request
+- 在完成功能或 bug 修复后，提交之前
+- 当你快速迭代并想要清理时
+- 在大型重构后捕获你错过的内容
+- 在打开拉取请求之前
