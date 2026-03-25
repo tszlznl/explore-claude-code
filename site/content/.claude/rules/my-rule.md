@@ -44,7 +44,7 @@ The **body** contains your actual conventions. Write them as direct instructions
 | Pattern | Matches |
 |---|---|
 | `"src/**/*.ts"` | All TypeScript files under src/ |
-| `"*.test.{ts,js}"` | Test files at any depth |
+| `"**/*.test.{ts,js}"` | Test files at any depth |
 | `"src/backend/**/*.cs"` | C# files in the backend directory |
 | `"docker-compose*.yml"` | Docker Compose files in the project |
 | `"**/*.sql"` | All SQL files anywhere in the project |
@@ -66,7 +66,7 @@ Keep conventions in **CLAUDE.md** when they:
 Rules and [skills](^Skills are reusable instruction packages with SKILL.md, optional scripts, references, and invocation via /skill-name) both provide instructions, but they solve different problems:
 
 | | Rules | Skills |
-|---|--------|--------|
+|---|---|---|
 | Format | Markdown with optional globs frontmatter | SKILL.md with required name/description frontmatter |
 | Purpose | Passive conventions loaded into context | Active instructions, optionally invocable |
 | Activation | Automatic, based on file patterns | Automatic or via `/skill-name` |

@@ -79,7 +79,7 @@ Use **CLAUDE.md** for project-wide context that always applies. Use **rules** fo
 - Rules with no `globs` are always loaded, so use them sparingly to avoid context bloat
 - Rules are passive context. If you need Claude to run scripts or follow multi-step workflows, use a [skill](^Skills are reusable instruction packages with optional scripts, references, and invocation via /skill-name) instead
 - Rules complement CLAUDE.md. Put universal conventions in CLAUDE.md, file-specific conventions in rules
-- Agents can reference rules via the `skills` frontmatter field to inject conventions into their context at startup
+- Agents automatically pick up matching rules when they work on files that match a rule's globs, just like the main session does
 
 ## Explore the Scaffolding
 
