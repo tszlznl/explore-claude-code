@@ -16,7 +16,7 @@ No registration or configuration needed. Claude discovers rule files automatical
 Rules use a simple matching model:
 
 1. **Discovery**: At startup, Claude scans `.claude/rules/` [recursively](^All .md files are discovered in subdirectories too, so you can organise rules into folders like frontend/ or backend/) and reads each file's frontmatter
-2. **Matching**: When Claude reads a file, it checks which rules have matching `paths` patterns. When multiple rules match, all of them are loaded
+2. **Matching**: When Claude reads a file, it checks which rules have matching `paths` patterns. If multiple rules match, all of them are loaded
 3. **Loading**: Matched rules are pulled into context alongside CLAUDE.md. Rules with no `paths` are always loaded
 
 ## Frontmatter
@@ -73,7 +73,7 @@ Use **CLAUDE.md** for project-wide context that always applies. Use **rules** fo
 ## Tips
 
 - Keep rules focused. One concern per file, not one giant file with everything
-- Use descriptive filenames: `backend-api.md`, `testing.md`, `frontend-react.md`
+- Use descriptive filenames: `backend-api.md`, `testing.md`, `frontend-styles.md`
 - Keep individual rule files concise. Every loaded rule consumes context window tokens alongside CLAUDE.md
 - Rules with no `paths` are always loaded, so use them sparingly to avoid context bloat
 - Rules are passive context. If you need Claude to run scripts or follow multi-step workflows, use a [skill](^Skills are reusable instruction packages with optional scripts, references, and invocation via /skill-name) instead
@@ -84,4 +84,4 @@ Use **CLAUDE.md** for project-wide context that always applies. Use **rules** fo
 
 Open the `my-rule.md` file below to see a complete example rule with every field and pattern explained.
 
-[Rules reference](https://code.claude.com/docs/en/memory)
+[Rules documentation](https://code.claude.com/docs/en/memory)

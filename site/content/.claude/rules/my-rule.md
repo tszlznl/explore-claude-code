@@ -53,7 +53,7 @@ The **body** contains your actual conventions. Write them as direct instructions
 | `"src/**/*.ts"` | All TypeScript files under src/ |
 | `"**/*.test.{ts,js}"` | Test files at any depth |
 | `"src/**/*.py"` | Python files in the src directory |
-| `"docker-compose*.yml"` | Docker Compose files in the project |
+| `"Dockerfile*"` | Dockerfiles in the project root |
 | `"**/*.sql"` | All SQL files anywhere in the project |
 
 ## What Goes in a Rule vs CLAUDE.md
@@ -91,5 +91,5 @@ Example `paths` values for common rule files:
 | `api-design.md` | `["src/api/**/*.ts", "src/routes/**/*.py"]` |
 | `test-patterns.md` | `["**/*.test.{ts,js}", "tests/**/*.py"]` |
 | `migrations.md` | `["**/migrations/**/*", "src/models/**/*"]` |
-| `components.md` | `["src/components/**/*.tsx", "src/hooks/**/*.ts"]` |
+| `ui-patterns.md` | `["src/views/**/*.ts", "src/styles/**/*.css"]` |
 | `ci-cd.md` | `["Dockerfile*", ".github/**/*", "*.yml"]` |
