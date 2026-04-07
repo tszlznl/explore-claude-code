@@ -27,6 +27,7 @@ A simulated Claude Code project you can click through. Every file and folder in 
 |---|---|
 | `CLAUDE.md` | Project memory that persists across sessions |
 | `.claude/settings.json` | Permissions, tool access, and guardrails |
+| `.claude/rules/` | Contextual conventions scoped to specific file types |
 | `.claude/commands/` | Custom slash commands for saved workflows |
 | `.claude/skills/` | Knowledge folders Claude loads autonomously |
 | `.claude/agents/` | Subagents for specialised, delegated tasks |
